@@ -38,14 +38,14 @@ body{
 /*Div´s*/
 
 
-#titel_logo
+#title-logo
 {
 	position:absolute;
 	left:calc(50% - 500px);
 	top:calc(0% + 175px);
 }
 
-#titel_bottom
+#title_bottom
 {
 	position:absolute;
 	left:calc(50% - 50px);
