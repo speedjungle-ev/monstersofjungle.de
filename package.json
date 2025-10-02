@@ -1,14 +1,15 @@
 {
   "name": "monstersofjungle.de",
-  "version": "1.0.0",
-  "description": "",
-  "main": "dist/index.js",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "build": "tsc"
+    "dev": "monstersofjungle.de/node_modules/.bin/vite",
+    "build": "monstersofjungle.de/node_modules/.bin/tsc && vite build",
+    "preview": "monstersofjungle.de/node_modules/.bin/vite preview"
   },
-  "dependencies": {},
   "devDependencies": {
-    "typescript": "^5.5.3"
-  },
-  "private": true
+    "typescript": "~5.9.3",
+    "vite": "^7.1.7"
+  }
 }

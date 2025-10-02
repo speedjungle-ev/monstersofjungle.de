@@ -7,10 +7,10 @@
 body {
     display: flex;
     flex-direction: column;
-    font-size: 1rem;
-    /*width: 100%;*/
-    /*height: 100%;*/
-    /*gap: 8px;*/
+    font-size: 1.2rem;
+    width: 100%;
+    height: 100%;
+    gap: 8px;
 }
 
 header, main, footer {
@@ -19,19 +19,14 @@ header, main, footer {
     position: relative;
     margin: 0 auto;
     gap: 16px;
-
 }
 
 header {
-    margin: 8rem auto;
+    margin: 5.6rem auto;
 }
 
 header img.background {
-    border: solid mediumvioletred;
     flex-shrink: 0;
-    /*object-fit: contain; !* fits fully, may leave empty space *!*/
-    /*background-color: #f5f5f5; !* optional: fill the gaps *!*/
-    /*display: block;*/
 }
 
 footer {
@@ -47,37 +42,42 @@ main {
 }
 
 main h1 {
-    text-align: center;
-    font-size: 1.8rem;
     margin: 0;
     text-transform: uppercase;
 }
 
-main p {
-    text-align: justify;
-    font-size: 1.2rem;
-    line-height: 1.8rem;
+@media (max-width: 375px) {
+    main h1 {
+        background-color: red;
+        font-size: 2.2rem;
+    }
 }
 
-#title-logo {
+p {
+    text-align: justify;
+    font-size: 1.6rem;
+}
+
+#header-branding {
     position: absolute;
+    top: calc(0% - 90px);
     left: calc(50% - (500px / 2));
     width: 100%;
     max-width: 500px;
-    /*topx:calc(0% + 150px);*/
-    /*margin: 0 auto;*/
 }
 
-#title_bottom {
+#footer-branding {
     position: absolute;
     bottom: 0;
     left: calc(50% - (80px / 2));
-    /*left: calc(50% - 50px);*/
-    /*top: calc(0% + 3550px);*/
 }
 
 .message {
     margin-top: 1rem;
+}
+
+.message p {
+    line-height: 2.3rem;
 }
 
 .talent {
@@ -90,23 +90,26 @@ main p {
 
 .talent a {
     width: 33%;
-    /*max-width: 304px;*/
+    max-width: 304px;
     flex: 1 1 calc(33.333% - 20px);
 }
 
 .talent a:hover {
-    /*transform: scale(1.05);*/
     filter: saturate(1.6) contrast(1.1);
     transform: scale(1.28);
     transition: transform 0.3s ease;
 }
 
-@media (max-width: 768px) {
-    body {
-        font-size: 0.95rem;
+@media (max-width: 840px) {
+    .talent a:hover {
+        filter: none;
+        transform: none;
+        transition: none;
     }
+}
 
-    .talent {
-        width: 25%;
-    }
+#hero {
+    width: 100%;
+    max-width: 932px;
+    margin: 1rem auto;
 }

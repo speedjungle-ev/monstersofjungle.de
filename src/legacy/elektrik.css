@@ -38,14 +38,14 @@ body{
 /*Div´s*/
 
 
-#title-logo
+#header-branding
 {
 	position:absolute;
 	left:calc(50% - 500px);
 	top:calc(0% + 175px);
 }
 
-#title_bottom
+#footer-branding
 {
 	position:absolute;
 	left:calc(50% - 50px);
