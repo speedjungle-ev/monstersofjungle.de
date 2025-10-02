@@ -42,7 +42,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build  # <-- ensure this matches your framework output
+          path: dist  # <-- ensure this matches your framework output
 
       - name: Deploy 🚀
         id: deployment
