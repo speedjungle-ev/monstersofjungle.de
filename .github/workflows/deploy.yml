@@ -7,8 +7,8 @@ on:
       - main
 
 jobs:
-  build:
-    name: Deploy Update
+  deploy:
+    name: Build & Deploy
     runs-on: ubuntu-latest
 
     permissions:
@@ -28,18 +28,21 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "lts/*"
+          cache: npm
 
       - name: Install dependencies 📦
-        run: |
-          npm install
+        run: npm ci
 
-      - name: Build
-        run: |
-          npm run build
-      - uses: actions/configure-pages@v4
-      - uses: actions/upload-pages-artifact@v3
+      - name: Build 🔨
+        run: npm run build
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: build
+          path: build  # <-- ensure this matches your framework output
 
       - name: Deploy 🚀
         id: deployment
