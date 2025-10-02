@@ -25,10 +25,6 @@ header {
     margin: 5.6rem auto;
 }
 
-header img.background {
-    flex-shrink: 0;
-}
-
 footer {
     padding-bottom: 4rem;
 }
@@ -58,18 +54,10 @@ p {
     font-size: 1.6rem;
 }
 
-#header-branding {
-    position: absolute;
-    top: calc(0% - 90px);
-    left: calc(50% - (500px / 2));
-    width: 100%;
-    max-width: 500px;
-}
-
-#footer-branding {
-    position: absolute;
-    bottom: 0;
-    left: calc(50% - (80px / 2));
+img.background {
+    max-width: 300px;
+    max-height: 300px;
+    flex-shrink: 0;
 }
 
 .message {
@@ -106,6 +94,20 @@ p {
         transform: none;
         transition: none;
     }
+}
+
+#header-branding {
+    position: absolute;
+    top: calc(0% - 90px);
+    left: calc(50% - (500px / 2));
+    width: 100%;
+    max-width: 500px;
+}
+
+#footer-branding {
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - (80px / 2));
 }
 
 #hero {
