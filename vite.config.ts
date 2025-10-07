@@ -1,4 +1,5 @@
-import { defineConfig } from 'vite';
+import {defineConfig} from 'vite';
+
 export default defineConfig({
-    base: "/monstersofjungle.de",
+    base: import.meta.env.VITE_BASE_URL
 })
