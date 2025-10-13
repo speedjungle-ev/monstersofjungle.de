@@ -1,33 +1,41 @@
-// import {mixLinks, nextRadioEvent} from "./artist-data/elektrikearliner.ts";
+import { getNextRadioShowDate } from "./utils/get-next-radio-show-date.ts";
+import { type MixListLink, renderMixList } from "./components/MixList.ts";
 
-const artistDataMap: Record<string, string> = {
-    elektrikearliner: "Elektrik Earliner",
-    tforce: "T-Force",
-}
+import elektrikearlinerData from "./artist-data/elektrikearliner.ts";
+import tforceData from "./artist-data/tforce.ts";
+
+type ArtistMeta = {
+  artistNameLabel: string;
+  mixData: MixListLink[];
+  nextRadioEvent?: Date;
+};
+
+const artistDataMap: Record<string, ArtistMeta> = {
+  elektrikearliner: {
+    artistNameLabel: elektrikearlinerData.artistNameLabel,
+    mixData: elektrikearlinerData.mixLinks,
+    nextRadioEvent: elektrikearlinerData.nextRadioEvent,
+  },
+  tforce: {
+    artistNameLabel: tforceData.artistNameLabel,
+    mixData: tforceData.mixLinks,
+  },
+};
 
 const params = new URLSearchParams(window.location.search);
-const artistParam = params.get("artist")
-const artist = artistParam && artistDataMap[artistParam]
-    ? artistDataMap[artistParam]
-    : "Undefined Artist";
+const artistParam = params.get("artist") || "Undefined Artist";
+const artistMeta = artistDataMap[artistParam] as ArtistMeta;
 
-const attachmentElement = document.getElementById("attachments")
-const mixLinksElement = document.getElementById("mix-links")
-const targetElement = document.getElementById("artist-key")
+// const attachmentElement = document.getElementById("attachments")
+const mixLinksElement = document.getElementById("mix-links");
+const artistKeyElement = document.getElementById("artist-key");
 
-if (attachmentElement && targetElement && mixLinksElement) {
-    targetElement.innerHTML = artist
-    // const pElement = document.createElement("p");
-    // pElement.innerHTML = `Next Radio Show: ${nextRadioEvent}`
-    // targetElement.appendChild(pElement);
-
-    // mixLinksElement.forEach(linkObj => {
-    //     const liElement = document.createElement("li");
-    //     liElement.innerHTML = `<a href="${linkObj.link}" target="_blank" rel="noopener">${linkObj.label}</a>`;
-    //     // const aElement = document.createElement("a");
-    //     // liElement.appendChild(aElement);
-    //     mixListElement.appendChild(liElement);
-    // });
-
-    console.log(`${artist} - monstahz!!!`)
+if (artistKeyElement) {
+  artistKeyElement.innerHTML = String(artistMeta.artistNameLabel);
 }
+if (mixLinksElement) {
+  renderMixList(artistMeta.mixData, mixLinksElement);
+}
+
+console.log(`${artistParam} - monstahz!!!`);
+console.log(getNextRadioShowDate(Date.now()));

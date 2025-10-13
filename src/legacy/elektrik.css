@@ -1,257 +1,219 @@
-﻿html{
-    width:100%;
-    height:100%;
+﻿html {
+  width: 100%;
+  height: 100%;
 }
 
-body{
-	position: absolute;
-	top:0px;
-	left:0px;
-	width:100%;
-	height:100%;
-	margin:0px;
-	padding:0px;
+body {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 /*Klassen*/
 
-.black
-{
-	color:#000000;
+.black {
+  color: #000000;
 }
 
-
-
-.blue
-{
-	color:#0101DF;
+.blue {
+  color: #0101df;
 }
 
-.Knoepfe
-{
-	display:block;
-	border:2px outset white;
-	border-radius:25px 25px;
-	padding:6px;
+.Knoepfe {
+  display: block;
+  border: 2px outset white;
+  border-radius: 25px 25px;
+  padding: 6px;
 }
 
 /*Div´s*/
 
-
-#header-branding
-{
-	position:absolute;
-	left:calc(50% - 500px);
-	top:calc(0% + 175px);
+#header-branding {
+  position: absolute;
+  left: calc(50% - 500px);
+  top: calc(0% + 175px);
 }
 
-#footer-branding
-{
-	position:absolute;
-	left:calc(50% - 50px);
-	top:calc(0% + 1775px);
+#footer-branding {
+  position: absolute;
+  left: calc(50% - 50px);
+  top: calc(0% + 1775px);
 }
 
-#titel_center
-{
-	position:absolute;
-	left:calc(50% - 150px);
-	top:calc(0% + 100px);
+#titel_center {
+  position: absolute;
+  left: calc(50% - 150px);
+  top: calc(0% + 100px);
 }
 
-#titel_left
-{
-	position:absolute;
-	left:calc(50% - 500px);
-	top:calc(0% + 100px);
+#titel_left {
+  position: absolute;
+  left: calc(50% - 500px);
+  top: calc(0% + 100px);
 }
 
-#titel_right
-{
-	position:absolute;
-	left:calc(50% + 200px);
-	top:calc(0% + 100px);
+#titel_right {
+  position: absolute;
+  left: calc(50% + 200px);
+  top: calc(0% + 100px);
 }
 
-
-#r1_left
-{
-	position:absolute;
-	left:calc(50% - 500px);
-	top:calc(0% + 475px);
+#r1_left {
+  position: absolute;
+  left: calc(50% - 500px);
+  top: calc(0% + 475px);
 }
 
-#r1_center
-{
-	position:absolute;
-	left:calc(50% - 150px);
-	top:calc(0% + 475px);
+#r1_center {
+  position: absolute;
+  left: calc(50% - 150px);
+  top: calc(0% + 475px);
 }
 
-#r1_right
-{
-	position:absolute;
-	left:calc(50% + 200px);
-	top:calc(0% + 475px);
+#r1_right {
+  position: absolute;
+  left: calc(50% + 200px);
+  top: calc(0% + 475px);
 }
 
-#r2_left
-{
-	position:absolute;
-	left:calc(50% - 500px);
-	top:calc(0% + 825px);
+#r2_left {
+  position: absolute;
+  left: calc(50% - 500px);
+  top: calc(0% + 825px);
 }
 
-#r2_center
-{
-	position:absolute;
-	left:calc(50% - 150px);
-	top:calc(0% + 825px);
+#r2_center {
+  position: absolute;
+  left: calc(50% - 150px);
+  top: calc(0% + 825px);
 }
 
-#r2_right
-{
-	position:absolute;
-	left:calc(50% + 200px);
-	top:calc(0% + 825px);
+#r2_right {
+  position: absolute;
+  left: calc(50% + 200px);
+  top: calc(0% + 825px);
 }
 
-#r3_left
-{
-	position:absolute;
-	left:calc(50% - 500px);
-	top:calc(0% + 1175px);
+#r3_left {
+  position: absolute;
+  left: calc(50% - 500px);
+  top: calc(0% + 1175px);
 }
 
-#r3_center
-{
-	position:absolute;
-	left:calc(50% - 150px);
-	top:calc(0% + 1175px);
+#r3_center {
+  position: absolute;
+  left: calc(50% - 150px);
+  top: calc(0% + 1175px);
 }
 
-#r3_right
-{
-	position:absolute;
-	left:calc(50% + 200px);
-	top:calc(0% + 1175px);
+#r3_right {
+  position: absolute;
+  left: calc(50% + 200px);
+  top: calc(0% + 1175px);
 }
 
-#r4_left
-{
-	position:absolute;
-	left:calc(50% - 500px);
-	top:calc(0% + 1525px);
+#r4_left {
+  position: absolute;
+  left: calc(50% - 500px);
+  top: calc(0% + 1525px);
 }
 
-#r4_center
-{
-	position:absolute;
-	left:calc(50% - 150px);
-	top:calc(0% + 1525px);
+#r4_center {
+  position: absolute;
+  left: calc(50% - 150px);
+  top: calc(0% + 1525px);
 }
 
-#r4_right
-{
-	position:absolute;
-	left:calc(50% + 200px);
-	top:calc(0% + 1525px);
+#r4_right {
+  position: absolute;
+  left: calc(50% + 200px);
+  top: calc(0% + 1525px);
 }
 
-#mix1_logo
-{
-	position:absolute;
-	left:calc(50% - 145px);
-	top:calc(0% + 830px);
+#mix1_logo {
+  position: absolute;
+  left: calc(50% - 145px);
+  top: calc(0% + 830px);
 }
 
-#mix1_text
-{
-	position:absolute;
-	left:calc(50% - 80px);
-	top:calc(0% + 835px);
+#mix1_text {
+  position: absolute;
+  left: calc(50% - 80px);
+  top: calc(0% + 835px);
 }
 
-#mix2_logo
-{
-	position:absolute;
-	left:calc(50% - 145px);
-	top:calc(0% + 895px);
+#mix2_logo {
+  position: absolute;
+  left: calc(50% - 145px);
+  top: calc(0% + 895px);
 }
 
-#mix2_text
-{
-	position:absolute;
-	left:calc(50% - 80px);
-	top:calc(0% + 900px);
+#mix2_text {
+  position: absolute;
+  left: calc(50% - 80px);
+  top: calc(0% + 900px);
 }
 
-#mix3_logo
-{
-	position:absolute;
-	left:calc(50% - 145px);
-	top:calc(0% + 960px);
+#mix3_logo {
+  position: absolute;
+  left: calc(50% - 145px);
+  top: calc(0% + 960px);
 }
 
-#mix3_text
-{
-	position:absolute;
-	left:calc(50% - 80px);
-	top:calc(0% + 965px);
+#mix3_text {
+  position: absolute;
+  left: calc(50% - 80px);
+  top: calc(0% + 965px);
 }
 
-#mix4_logo
-{
-	position:absolute;
-	left:calc(50% - 145px);
-	top:calc(0% + 1025px);
+#mix4_logo {
+  position: absolute;
+  left: calc(50% - 145px);
+  top: calc(0% + 1025px);
 }
 
-#mix4_text
-{
-	position:absolute;
-	left:calc(50% - 80px);
-	top:calc(0% + 1030px);
+#mix4_text {
+  position: absolute;
+  left: calc(50% - 80px);
+  top: calc(0% + 1030px);
 }
 
-#mix5_logo
-{
-	position:absolute;
-	left:calc(50% - 145px);
-	top:calc(0% + 1090px);
+#mix5_logo {
+  position: absolute;
+  left: calc(50% - 145px);
+  top: calc(0% + 1090px);
 }
 
-#mix5_text
-{
-	position:absolute;
-	left:calc(50% - 80px);
-	top:calc(0% + 1095px);
+#mix5_text {
+  position: absolute;
+  left: calc(50% - 80px);
+  top: calc(0% + 1095px);
 }
 
-#mix6_logo
-{
-	position:absolute;
-	left:calc(50% - 145px);
-	top:calc(0% + 1155px);
+#mix6_logo {
+  position: absolute;
+  left: calc(50% - 145px);
+  top: calc(0% + 1155px);
 }
 
-#mix6_text
-{
-	position:absolute;
-	left:calc(50% - 80px);
-	top:calc(0% + 1160px);
+#mix6_text {
+  position: absolute;
+  left: calc(50% - 80px);
+  top: calc(0% + 1160px);
 }
 
-#mix7_logo
-{
-	position:absolute;
-	left:calc(50% - 145px);
-	top:calc(0% + 1220px);
+#mix7_logo {
+  position: absolute;
+  left: calc(50% - 145px);
+  top: calc(0% + 1220px);
 }
 
-#mix7_text
-{
-	position:absolute;
-	left:calc(50% - 80px);
-	top:calc(0% + 1235px);
+#mix7_text {
+  position: absolute;
+  left: calc(50% - 80px);
+  top: calc(0% + 1235px);
 }
