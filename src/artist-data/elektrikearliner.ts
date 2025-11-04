@@ -1,7 +1,7 @@
 import { getNextRadioShowDate } from "../utils/get-next-radio-show-date.ts";
 
 export default {
-  artistNameLabel: "Elektrik Earliner",
+  artistNameLabel: "elektrik earliner",
   mixLinks: [
     {
       label: "classic modern analog digital 235711",
