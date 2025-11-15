@@ -32,5 +32,5 @@ export default {
       link: "https://www.mixcloud.com/elektrik_earliner/all-sounds-elektrik-earliner-mix/",
     },
   ],
-  nextRadioEvent: getNextRadioShowDate(Date.now()),
+  attachment: `Next Show: ${getNextRadioShowDate(Date.now()).toLocaleDateString()}`,
 };

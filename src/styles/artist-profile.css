@@ -1,0 +1,26 @@
+#mix-links {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: thin solid red;
+    gap: 1rem;
+}
+
+#mix-links > li {
+    border: thin solid blue;
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 1rem;
+    padding: 0;
+    margin: 0;
+    font-size: 2rem;
+}
+
+
+#mix-links img {
+    width: 50px;
+    height: 50px;
+}

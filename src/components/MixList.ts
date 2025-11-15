@@ -10,17 +10,14 @@ export function renderMixList(
   targetElement: HTMLElement,
 ) {
   render(
-    html`
-      <ul>
-        ${mixes.map(
-          (mix) => `
-          <li>
-            <a href=${mix.link} target="_blank" rel="noopener">${mix.label}</a>
-          </li>
-        `,
-        )}
-      </ul>
-    `,
+    html`${mixes.map(
+      (mix) => html`
+        <li>
+          <img src="/images/speaker.svg" alt="Link ${mix.label}" />
+          <a href=${mix.link} target="_blank" rel="noopener">${mix.label}</a>
+        </li>
+      `,
+    )}`,
     targetElement,
   );
 }
