@@ -2,7 +2,6 @@
   "name": "monstersofjungle.de",
   "private": true,
   "version": "0.0.1",
-  "homepage": "/monstersofjungle.de/",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +9,9 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/node": "^25.3.3",
     "typescript": "~5.9.3",
-    "vite": "^7.1.7"
+    "vite": "7.3.1",
+    "vituum": "^1.2.0"
   }
 }
