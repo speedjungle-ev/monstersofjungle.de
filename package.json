@@ -2,16 +2,24 @@
   "name": "monstersofjungle.de",
   "private": true,
   "version": "0.0.1",
+  "homepage": "/monstersofjungle.de/",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest",
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "@types/node": "^25.3.3",
+    "prettier": "^3.6.2",
     "typescript": "~5.9.3",
     "vite": "7.3.1",
+    "vitest": "^3.2.4",
     "vituum": "^1.2.0"
+  },
+  "dependencies": {
+    "lit-html": "^3.3.1"
   }
 }

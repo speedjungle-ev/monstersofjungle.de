@@ -1,0 +1,119 @@
+﻿html {
+  width: 100%;
+  height: 100%;
+  padding-bottom: 14px;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2rem;
+  width: 100%;
+  height: 100%;
+  gap: 8px;
+}
+
+header,
+main,
+footer {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin: 0 auto;
+  gap: 16px;
+}
+
+header {
+  margin: 5.6rem auto;
+}
+
+footer {
+  padding-bottom: 4rem;
+}
+
+main {
+  flex-direction: column;
+  margin: 0 auto;
+  font-family: sans-serif, Arial, Helvetica;
+  max-width: 940px;
+  width: 100%;
+}
+
+main h1 {
+  margin: 0;
+  text-transform: uppercase;
+}
+
+@media (max-width: 375px) {
+  main h1 {
+    background-color: red;
+    font-size: 2.2rem;
+  }
+}
+
+p {
+  text-align: justify;
+  font-size: 1.6rem;
+}
+
+img.background {
+  max-width: 300px;
+  max-height: 300px;
+  flex-shrink: 0;
+}
+
+.message {
+  margin-top: 1rem;
+}
+
+.message p {
+  line-height: 2.3rem;
+}
+
+.talent {
+  gap: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 14px 0;
+}
+
+.talent a {
+  width: 33%;
+  max-width: 304px;
+  flex: 1 1 calc(33.333% - 20px);
+}
+
+.talent a:hover {
+  filter: saturate(1.6) contrast(1.1);
+  transform: scale(1.28);
+  transition: transform 0.3s ease;
+}
+
+@media (max-width: 840px) {
+  .talent a:hover {
+    filter: none;
+    transform: none;
+    transition: none;
+  }
+}
+
+#header-branding {
+  position: absolute;
+  top: calc(0% - 90px);
+  left: calc(50% - (500px / 2));
+  width: 100%;
+  max-width: 500px;
+}
+
+#footer-branding {
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - (80px / 2));
+}
+
+#hero {
+  width: 100%;
+  max-width: 932px;
+  margin: 1rem auto;
+}
