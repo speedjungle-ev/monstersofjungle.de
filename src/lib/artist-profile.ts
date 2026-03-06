@@ -1,7 +1,7 @@
-import { type MixListLink, renderMixList } from "./components/MixList.ts";
+import { type MixListLink, renderMixList } from "../components/MixList.ts";
 
-import elektrikearlinerData from "./artist-data/elektrikearliner.ts";
-import tforceData from "./artist-data/tforce.ts";
+import elektrikearlinerData from "../artist-data/elektrikearliner.ts";
+import tforceData from "../artist-data/tforce.ts";
 import { html, render } from "lit-html";
 
 export type ArtistMeta = {
