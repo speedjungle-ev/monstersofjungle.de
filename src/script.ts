@@ -1,4 +1,4 @@
-console.log("monstahz!!!")
+console.log("monstahz!!!");
 
 // console.log(window.location.search)
 // const urlParms = new URLSearchParams(window.location.search)
