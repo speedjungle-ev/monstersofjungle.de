@@ -17,7 +17,8 @@ if (artistHeader) {
     html`${Array.from({ length: 4 }).map(
       (_item, index) =>
         html`<img
-          src="/artists/${artistParam}${index + 1}.png"
+          src="${import.meta.env.BASE_URL}artists/${artistParam}${index +
+          1}.png"
           alt="${artistParam}${index}"
         />`,
     )}`,
