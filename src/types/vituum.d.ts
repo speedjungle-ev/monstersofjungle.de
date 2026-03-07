@@ -1,2 +1,2 @@
 declare module "vituum";
-// declare module 'vituum/plugins/pages.js'
+// declare module 'vituum/plugins/scripts.js'

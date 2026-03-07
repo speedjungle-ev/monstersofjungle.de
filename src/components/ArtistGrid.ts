@@ -9,6 +9,14 @@ type ArtistMetaData = {
   nextRadioEvent: string;
 };
 
+const artistDataFiles: Record<string, ArtistMetaData> = import.meta.glob(
+  "/src/data-sources/*.ts",
+  {
+    eager: true,
+    import: "default",
+  },
+);
+
 function renderArtistGrid(
   artists: Record<string, ArtistMetaData>,
   targetElement: HTMLElement,
@@ -27,15 +35,7 @@ function renderArtistGrid(
   );
 }
 
-const artistFileData: Record<string, ArtistMetaData> = import.meta.glob(
-  "/src/artist-data/*.ts",
-  {
-    eager: true,
-    import: "default",
-  },
-);
-
-const artistMetaData = createArtistMetadataEntries(artistFileData);
+const artistMetaData = createArtistMetadataEntries(artistDataFiles);
 const artists = normalizeArtistMetaDataKeys(
   artistMetaData,
   ARTIST_PAGE_GRID_ORDER,
