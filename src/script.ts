@@ -9,5 +9,11 @@ console.log("monstahz!!!");
 const headerEl = document.querySelector("header");
 const footerEl = document.querySelector("footer");
 
-if (headerEl) await renderTemplate("templates/header.html", headerEl);
+// Array are pages where the header will not be replaced
+const hasCustomHeader = ["/artist-details.html"].includes(
+  window.location.pathname,
+);
+
+if (headerEl && !hasCustomHeader)
+  await renderTemplate("templates/header.html", headerEl);
 if (footerEl) await renderTemplate("templates/footer.html", footerEl);
