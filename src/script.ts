@@ -2,17 +2,13 @@ import { renderTemplate } from "./utils/render-template.ts";
 
 console.log("monstahz!!!");
 
-// console.log(window.location.search)
-// const urlParms = new URLSearchParams(window.location.search)
-// console.log(urlParms.get("artist"))
-
 const headerEl = document.querySelector("header");
 const footerEl = document.querySelector("footer");
 
 // Array are pages where the header will not be replaced
-const hasCustomHeader = ["/artist-details.html"].includes(
-  window.location.pathname,
-);
+const hasCustomHeader = [
+  `${import.meta.env.BASE_URL}/artist-details.html`,
+].includes(window.location.pathname);
 
 if (headerEl && !hasCustomHeader)
   await renderTemplate("templates/header.html", headerEl);
