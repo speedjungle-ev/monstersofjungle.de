@@ -9,7 +9,7 @@ import rubyData from "./artist-data/ruby.ts";
 import tforceData from "./artist-data/tforce.ts";
 import type { ArtistMeta } from "./types/types";
 
-export const ARTIST_PAGE_ROUTE = "./artist-profile.html";
+export const ARTIST_PAGE_ROUTE = "./artist-details.html";
 export const ARTIST_PAGE_GRID_ORDER = [
   "elektrikearliner",
   "tforce",

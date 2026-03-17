@@ -10,7 +10,7 @@ type ArtistMetaData = {
 };
 
 const artistDataFiles: Record<string, ArtistMetaData> = import.meta.glob(
-  "/src/data-sources/*.ts",
+  "/src/artist-data/*.ts",
   {
     eager: true,
     import: "default",
@@ -26,7 +26,7 @@ function renderArtistGrid(
       (artistKey) =>
         html`<a href="${ARTIST_PAGE_ROUTE}?artist=${artistKey}">
           <img
-            src="/talent-photo-${artistKey}.png"
+            src="/talent/${artistKey}.png"
             alt="${artists[artistKey].artistNameLabel}"
           />
         </a>`,
