@@ -1,8 +1,7 @@
 import { type MixListLink, renderMixList } from "./components/MixList.ts";
 
-import elektrikearlinerData from "./artist-data/elektrikearliner.ts";
-import tforceData from "./artist-data/tforce.ts";
 import { html, render } from "lit-html";
+import { ARTIST_META_MAP } from "./constants.ts";
 
 export type ArtistMeta = {
   artistNameLabel: string;
@@ -10,14 +9,9 @@ export type ArtistMeta = {
   attachment?: string;
 };
 
-const artistDataMap: Record<string, ArtistMeta> = {
-  elektrikearliner: elektrikearlinerData,
-  tforce: tforceData,
-};
-
 const params = new URLSearchParams(window.location.search);
 const artistParam = params.get("artist") || "Undefined Artist";
-const artistMeta = artistDataMap[artistParam] as ArtistMeta;
+const artistMeta = ARTIST_META_MAP[artistParam] as ArtistMeta;
 
 const artistHeader = document.querySelector("header");
 const artistKeyElement = document.getElementById("artist-key");
