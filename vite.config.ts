@@ -1,13 +1,9 @@
 import { defineConfig } from "vite";
-import path from "node:path";
+import vituum from "vituum";
 
+const isDev = process.env.NODE_ENV !== "production";
+const base = isDev ? "" : "/monstersofjungle.de/";
 export default defineConfig({
-  build: {
-    rollupOptions: {
-      input: {
-        main: path.resolve(__dirname, "index.html"),
-        artist: path.resolve(__dirname, "artist-profile.html"),
-      },
-    },
-  },
+  base,
+  plugins: [vituum()],
 });

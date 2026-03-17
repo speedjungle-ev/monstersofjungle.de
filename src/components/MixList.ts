@@ -13,7 +13,7 @@ export function renderMixList(
     html`${mixes.map(
       (mix) => html`
         <li>
-          <img src="/images/speaker.svg" alt="Link ${mix.label}" />
+          <img src="./images/speaker.svg" alt="Link ${mix.label}" />
           <a href=${mix.link} target="_blank" rel="noopener">${mix.label}</a>
         </li>
       `,
