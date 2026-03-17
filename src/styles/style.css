@@ -1,5 +1,6 @@
 :root {
-    --grid-gap: 16px
+    --grid-gap: 16px;
+    --grid-max-width: 940px;
 }
 
 html {
@@ -13,14 +14,11 @@ html {
 body {
     display: flex;
     flex-direction: column;
-    /*min-height: 100vh; !* fills viewport height, allows growth *!*/
-    /*width: 100%; !* full width *!*/
     margin: 0; /* kill default browser margin */
     padding: 0; /* clean slate */
     gap: 8px;
     font-size: 1.2rem;
     font-family: Verdana, Arial, sans-serif;
-    border: solid red;
 }
 
 
@@ -34,9 +32,13 @@ footer {
     position: relative;
     margin: 0 auto;
     gap: var(--grid-gap);
-    max-width: 940px;
+    max-width: var(--grid-max-width);
     width: 100%;
-    border: solid greenyellow;
+
+    div:first-of-type {
+        display: flex;
+        gap: var(--grid-gap);
+    }
 }
 
 header {
@@ -48,7 +50,6 @@ footer {
 }
 
 main {
-    border: solid blueviolet;
     flex-direction: column;
 }
 
@@ -84,7 +85,6 @@ main h1 {
 }
 
 .meta {
-    border: solid greenyellow;
     width: 100%;
     display: flex;
     justify-content: space-between;
