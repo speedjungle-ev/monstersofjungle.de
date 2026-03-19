@@ -8,7 +8,7 @@ import { logger, loggerWarn } from "../../src/utils/logger.ts";
 export function parseCollection(
   config: CrateConfig,
   rootDir: string,
-  verbose: boolean = true,
+  verbose: boolean,
 ) {
   const absDir = resolve(rootDir, config.dir);
 

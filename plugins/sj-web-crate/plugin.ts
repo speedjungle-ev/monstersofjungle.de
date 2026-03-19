@@ -9,6 +9,7 @@ import { logger } from "../../src/utils/logger.ts";
 const DTS_OUTPUT = "plugins/sj-web-crate/sj-web-crate.d.ts";
 
 export function sjWebCrate(options: Types): Plugin {
+  const verbose = Boolean(options.verbose);
   let resolvedConfig: ResolvedConfig;
   const virtualModuleIds = new Map<string, string>();
 
@@ -44,7 +45,7 @@ export function sjWebCrate(options: Types): Plugin {
       const entries = parseCollection(
         config,
         resolvedConfig.root,
-        options.verbose,
+        verbose,
       ).sort(
         (a, b) =>
           ((a.data as any).gridOrder ?? 99) - ((b.data as any).gridOrder ?? 99),
@@ -55,11 +56,7 @@ export function sjWebCrate(options: Types): Plugin {
     export const slugs = ${JSON.stringify(entries.map((e) => e.slug))};
   `;
 
-      logger(
-        options.verbose === true,
-        "emitting module:",
-        moduleString.slice(0, 300),
-      );
+      logger(verbose, "emitting module:", moduleString.slice(0, 300));
 
       return moduleString;
     },
