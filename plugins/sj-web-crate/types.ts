@@ -5,6 +5,10 @@ export interface Types {
    * Defaults to src/sj-web-crate/sj-web-crate.d.ts
    */
   dtsOutput?: string;
+  /**
+   * Turns on the logging from the plugin
+   */
+  verbose?: boolean;
 }
 
 export interface CrateConfig {
