@@ -3,6 +3,8 @@ import { html, render } from "lit-html";
 import { ARTIST_META_MAP } from "../crate.ts";
 import type { ArtistMetaData } from "../types/types";
 
+const logos = import.meta.glob("/public/logos/*.png", { eager: true });
+const artistImages = import.meta.glob("/public/artists/*.png", { eager: true });
 /**
  * Artist Details
  *
@@ -17,9 +19,13 @@ const artistKeyElement = document.getElementById("artist-key");
 const mixLinksElement = document.getElementById("mix-links");
 const attachmentElement = document.getElementById("attachments");
 
+const artistImageCount = Object.keys(artistImages).filter((img) =>
+  img.includes(artistParam),
+).length;
+
 if (artistHeader) {
   render(
-    html`${Array.from({ length: 4 }).map(
+    html`${Array.from({ length: artistImageCount }).map(
       (_item, index) =>
         html`<img
           src="${import.meta.env.BASE_URL}artists/${artistParam}${index +
@@ -32,7 +38,12 @@ if (artistHeader) {
 }
 
 if (artistKeyElement) {
-  artistKeyElement.innerHTML = String(artistMeta.artistNameLabel);
+  const logoPath = `${import.meta.env.BASE_URL}logos/${artistParam}_logo.png`;
+  const logoExists = `/public/logos/${artistParam}_logo.png` in logos;
+
+  artistKeyElement.innerHTML = logoExists
+    ? `<img src="${logoPath}" alt="${artistMeta.artistNameLabel}" />`
+    : `<span>${artistMeta.artistNameLabel}</span>`;
 }
 if (mixLinksElement) {
   mixLinksElement.textContent = "";
