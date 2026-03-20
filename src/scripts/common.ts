@@ -1,4 +1,4 @@
-import { renderTemplate } from "../utils/render-template.ts";
+import { renderTemplate } from "../utils/infrastructure/render-template.ts";
 
 console.log("monstahz!!!");
 

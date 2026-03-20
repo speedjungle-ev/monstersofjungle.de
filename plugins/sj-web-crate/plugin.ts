@@ -4,7 +4,7 @@ import { resolve } from "path";
 import { generateDts } from "./generateDts.ts";
 import { parseCollection } from "./parseCollection.ts";
 import type { Types } from "./types.ts";
-import { logger } from "../../src/utils/logger.ts";
+import { logger } from "../../src/utils/infrastructure/logger.ts";
 
 const DTS_OUTPUT = "plugins/sj-web-crate/sj-web-crate.d.ts";
 

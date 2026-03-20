@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { logger, loggerWarn } from "./logger";
+import { logger, loggerWarn } from "./logger.ts";
 
 describe("logger", () => {
   it("prefixes output with [sj-web-crate]", () => {

@@ -1,7 +1,9 @@
 ---
 artistNameLabel: elektrik earliner
 gridOrder: 1
-radioShow: true
+features:
+  - radioShow
+    
 mixLinks:
   - label: classic modern analog digital 235711
     link: https://www.mixcloud.com/elektrik_earliner/classic-modern-analog-digital-235711/

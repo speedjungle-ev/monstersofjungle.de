@@ -1,12 +1,13 @@
 import { entries, slugs } from "virtual:sj-web-crate/artist";
 import type { ArtistMetaData } from "./types/types";
-import { getNextRadioShowDate } from "./utils/get-next-radio-show-date.ts";
+import { getNextRadioShowDate } from "./utils/feature/get-next-radio-show-date.ts";
 
 function resolveFeatures(data: ArtistMetaData): Partial<ArtistMetaData> {
   const features = data.features ?? [];
+  console.log(data);
   return {
     attachment: features.includes("radioShow")
-      ? `Next Show: ${getNextRadioShowDate(Date.now()).toLocaleDateString()}`
+      ? `Next Radio Show: ${getNextRadioShowDate(Date.now()).toLocaleDateString()}`
       : (data.attachment ?? null),
   };
 }
