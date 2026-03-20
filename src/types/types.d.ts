@@ -1,7 +1,14 @@
-import type { MixListLink } from "../components/MixList.ts";
-
-export type ArtistMeta = {
+export type ArtistMetaData = {
+  gridOrder: number;
   artistNameLabel: string;
   mixLinks: MixListLink[];
-  attachment?: string;
+  features?: ArtistFeature[];
+  attachment?: string | any;
 };
+
+export interface MixListLink {
+  label: string;
+  link: string;
+}
+
+type ArtistFeature = "radioShow";

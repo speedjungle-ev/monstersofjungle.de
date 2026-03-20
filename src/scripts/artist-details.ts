@@ -1,11 +1,16 @@
-import { renderMixList } from "../components/MixList.ts";
+import { renderMixList } from "../components/render-mix-list.ts";
 import { html, render } from "lit-html";
-import type { ArtistMeta } from "../types/types";
-import { ARTIST_META_MAP } from "../constants.ts";
+import { ARTIST_META_MAP } from "../crate.ts";
+import type { ArtistMetaData } from "../types/types";
 
+/**
+ * Artist Details
+ *
+ * Read the URL Search params for artist KEY
+ */
 const params = new URLSearchParams(window.location.search);
 const artistParam = params.get("artist") || "Undefined Artist";
-const artistMeta = ARTIST_META_MAP[artistParam] as ArtistMeta;
+const artistMeta = ARTIST_META_MAP[artistParam] as ArtistMetaData;
 
 const artistHeader = document.querySelector("header");
 const artistKeyElement = document.getElementById("artist-key");
