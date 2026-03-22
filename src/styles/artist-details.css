@@ -1,5 +1,4 @@
 main {
-    border: thin solid red;
     flex-direction: column;
 }
 
@@ -21,8 +20,8 @@ main {
         font-size: 2rem;
 
         img {
-            width: 35px;
-            height: 35px;
+            min-width: 0;
+            max-width: 35px;
         }
 
         a {
@@ -30,4 +29,9 @@ main {
             width: 100%;
         }
     }
+}
+
+#attachments {
+    font-family: inherit;
+    font-size: 2rem;
 }

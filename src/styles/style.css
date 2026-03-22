@@ -68,3 +68,28 @@ a img:hover {
     transform: scale(1.05);
     filter: brightness(1.15);
 }
+
+
+@media (max-width: 780px) {
+    header {
+
+        img {
+            width: 76%;
+        }
+
+        img:nth-child(4) {
+            display: none;
+            border: solid red;
+        }
+    }
+}
+
+@media (max-width: 420px) {
+    header {
+        border: solid purple;
+
+        img {
+            width: 100%;
+        }
+    }
+}

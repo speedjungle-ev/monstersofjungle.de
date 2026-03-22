@@ -1,14 +1,24 @@
 import { entries, slugs } from "virtual:sj-web-crate/artist";
 import type { ArtistMetaData } from "./types/types";
-import { getNextRadioShowDate } from "./utils/feature/get-next-radio-show-date.ts";
+import { featureResolver } from "./crateFeatureResolver.ts";
 
 function resolveFeatures(data: ArtistMetaData): Partial<ArtistMetaData> {
   const features = data.features ?? [];
-  console.log(data);
+
+  if (process.env.NODE_ENV !== "production") {
+    console.log(data);
+  }
+
+  const matchedFeature = features.find((feature) => feature in featureResolver);
+
+  if (matchedFeature) {
+    return {
+      attachment: featureResolver[matchedFeature](),
+    };
+  }
+
   return {
-    attachment: features.includes("radioShow")
-      ? `Next Radio Show: ${getNextRadioShowDate(Date.now()).toLocaleDateString()}`
-      : (data.attachment ?? null),
+    attachment: data.attachment ?? null,
   };
 }
 
