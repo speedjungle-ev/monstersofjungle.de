@@ -86,7 +86,6 @@ a img:hover {
 
 @media (max-width: 420px) {
     header {
-        border: solid purple;
 
         img {
             width: 100%;
