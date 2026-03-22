@@ -8,6 +8,12 @@
     }
 }
 
+.hero {
+    width: 100%;
+    max-width: var(--grid-max-width);
+    margin: 0 auto;
+}
+
 .artist-grid {
     display: inherit;
     flex-wrap: wrap;

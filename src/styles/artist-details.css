@@ -24,8 +24,7 @@ main {
             max-width: 35px;
         }
 
-        a {
-            white-space: nowrap;
+        a, a:visited {
             width: 100%;
         }
     }

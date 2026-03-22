@@ -42,12 +42,22 @@ header {
 
 main {
     flex: 1;
+    flex-direction: column;
 }
 
 footer {
     padding-bottom: var(--grid-gap);
 }
 
+a, a:visited {
+    color: #3F8BCA;
+    /*width: 100%;*/
+}
+
+a:hover {
+    color: white;
+    background-color: #3F8BCA;
+}
 
 img {
     color: transparent;
@@ -79,7 +89,6 @@ a img:hover {
 
         img:nth-child(4) {
             display: none;
-            border: solid red;
         }
     }
 }
@@ -92,7 +101,6 @@ a img:hover {
         }
         img:nth-child(3) {
             display: none;
-            border: solid red;
         }
     }
     footer {
