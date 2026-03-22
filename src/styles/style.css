@@ -91,5 +91,12 @@ a img:hover {
         img {
             width: 100%;
         }
+        img:nth-child(3) {
+            display: none;
+            border: solid red;
+        }
+    }
+    footer {
+        justify-content: center;
     }
 }
