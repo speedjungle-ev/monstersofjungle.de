@@ -10,7 +10,7 @@ export function renderArtistGrid(
   render(
     order.map(
       (slug) =>
-        html`<a href="${SITE_MAP.artistDetail}?artist=${slug}">
+        html`<a href="${SITE_MAP.artistDetail}/${slug}">
           <img
             src="${import.meta.env.BASE_URL}talent/${slug}.png"
             alt="${artists[slug].artistNameLabel}"

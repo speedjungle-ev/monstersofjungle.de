@@ -11,7 +11,7 @@ const artistImages = import.meta.glob("/public/artists/*.png", { eager: true });
  * Read the URL Search params for artist KEY
  */
 const params = new URLSearchParams(window.location.search);
-const artistParam = params.get("artist") || "Undefined Artist";
+const artistParam = params.get("artist-details") || "Undefined Artist";
 const artistMeta = ARTIST_META_MAP[artistParam] as ArtistMetaData;
 
 const artistHeader = document.querySelector("header");

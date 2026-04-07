@@ -1,0 +1,36 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: artists
+  size: 1
+  alias: artist
+permalink: "artist/{{ artist.slug }}/index.html"
+---
+
+<h1>{{ artist.artistNameLabel }}</h1>
+
+<header>
+  {% for i in range(1, artist.imageCount + 1) %}
+    <img src="/artists/{{ artist.slug }}{{ i }}.png" />
+  {% endfor %}
+</header>
+
+<div id="artist-key">
+  {% if artist.hasLogo %}
+    <img src="/logos/{{ artist.slug }}_logo.png" />
+  {% else %}
+    <span>{{ artist.artistNameLabel }}</span>
+  {% endif %}
+</div>
+
+<div id="mix-links">
+  <ul>
+    {% for mix in artist.mixLinks %}
+      <li><a href="{{ mix.url }}">{{ mix.label }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% if artist.attachment %}
+  <div id="attachments">{{ artist.attachment }}</div>
+{% endif %}

@@ -9,3 +9,13 @@
     export const entries: Entry[];
     export const slugs: string[];
   }
+
+  declare module 'virtual:sj-web-crate/next-event' {
+    export interface Entry {
+      slug: string;
+      data: Record<string, unknown>;
+      body: string;
+    }
+    export const entries: Entry[];
+    export const slugs: string[];
+  }

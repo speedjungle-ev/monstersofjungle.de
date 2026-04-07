@@ -16,7 +16,18 @@ export default defineConfig({
           dir: "content/artists",
           requiredFields: ["artistNameLabel", "gridOrder"],
         },
+        {
+          name: "next-event",
+          dir: "content/next-event",
+          requiredFields: ["flyer"],
+        },
       ],
     }),
+    {
+      name: "log-config",
+      configResolved(config) {
+        console.log("options", config.optimizeDeps.rolldownOptions);
+      },
+    },
   ],
 });
