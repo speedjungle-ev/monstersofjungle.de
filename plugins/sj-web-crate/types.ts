@@ -27,4 +27,11 @@ export interface CrateConfig {
    * Build will throw if any are missing.
    */
   requiredFields?: string[];
+  /**
+   * Path to a .njk template (relative to project root).
+   * If set, the plugin generates one JSON page entry per collection item
+   * into src/pages/<name>/<slug>.json, which the Nunjucks plugin renders
+   * into dist/<name>/<slug>/index.html.
+   */
+  pageTemplate?: string;
 }

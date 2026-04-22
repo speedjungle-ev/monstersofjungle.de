@@ -21,6 +21,7 @@
     "vituum": "^1.2.0"
   },
   "dependencies": {
+    "@vituum/vite-plugin-nunjucks": "^2.0.1",
     "gray-matter": "^4.0.3",
     "lit-html": "^3.3.1"
   }

@@ -10,7 +10,7 @@
     export const slugs: string[];
   }
 
-  declare module 'virtual:sj-web-crate/next-event' {
+  declare module 'virtual:sj-web-crate/upcoming-event' {
     export interface Entry {
       slug: string;
       data: Record<string, unknown>;

@@ -1,5 +1,5 @@
 import type { Plugin, ResolvedConfig } from "vite";
-import { writeFileSync } from "fs";
+import { writeFileSync, mkdirSync } from "fs";
 import { resolve } from "path";
 import { generateDts } from "./generateDts.ts";
 import { parseCollection } from "./parseCollection.ts";
@@ -88,13 +88,36 @@ export function sjWebCrate(options: Types): Plugin {
       });
     },
 
-    // Generate .d.ts after build resolves config
+    // Generate .d.ts and per-entry page JSON files
     buildStart() {
       const dtsPath = resolve(
         resolvedConfig.root,
         options.dtsOutput ?? DTS_OUTPUT,
       );
       writeFileSync(dtsPath, generateDts(options.collections));
+
+      for (const config of options.collections) {
+        if (!config.pageTemplate) continue;
+
+        const entries = parseCollection(config, resolvedConfig.root, verbose);
+        const pagesDir = resolve(resolvedConfig.root, "src/pages", config.name);
+        const templatePath = resolve(resolvedConfig.root, config.pageTemplate);
+
+        mkdirSync(pagesDir, { recursive: true });
+
+        for (const entry of entries) {
+          const pageData = {
+            template: templatePath,
+            slug: entry.slug,
+            ...entry.data,
+            body: entry.body,
+          };
+
+          const outPath = resolve(pagesDir, `${entry.slug}.json`);
+          writeFileSync(outPath, JSON.stringify(pageData, null, 2));
+          logger(verbose, "generated page:", outPath);
+        }
+      }
     },
   };
 }

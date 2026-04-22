@@ -6,7 +6,7 @@ console.log({ NEXT_EVENT_FLYER });
 
 if (nextEventTarget) {
   const img = document.createElement("img");
-  img.setAttribute("src", String());
+  img.setAttribute("src", `events/${NEXT_EVENT_FLYER}`);
   nextEventTarget.appendChild(img);
 
   const p = document.createElement("p");

@@ -12,7 +12,7 @@ export function renderArtistGrid(
       (slug) =>
         html`<a href="${SITE_MAP.artistDetail}/${slug}">
           <img
-            src="${import.meta.env.BASE_URL}talent/${slug}.png"
+            src="${import.meta.env.BASE_URL}crew/${slug}.png"
             alt="${artists[slug].artistNameLabel}"
           />
         </a>`,
