@@ -1,10 +1,14 @@
-import type { Plugin, ResolvedConfig } from "vite";
-import { writeFileSync, mkdirSync } from "fs";
+import type { Plugin, ResolvedConfig, UserConfig } from "vite";
+import type { OutputAsset } from "rollup";
+import { mkdirSync, writeFileSync } from "fs";
 import { resolve } from "path";
 import { generateDts } from "./generateDts.ts";
 import { parseCollection } from "./parseCollection.ts";
 import type { Types } from "./types.ts";
 import { logger } from "../../src/utils/infrastructure/logger.ts";
+import { buildRollupInput, buildUrlMap } from "./buildRollupInput.ts";
+
+const PAGES_PREFIX = "src/pages/";
 
 const DTS_OUTPUT = "plugins/sj-web-crate/sj-web-crate.d.ts";
 
@@ -13,7 +17,6 @@ export function sjWebCrate(options: Types): Plugin {
   let resolvedConfig: ResolvedConfig;
   const virtualModuleIds = new Map<string, string>();
 
-  // Build the virtual module ID map upfront
   for (const collection of options.collections) {
     const id = `virtual:sj-web-crate/${collection.name}`;
     virtualModuleIds.set(id, `\0${id}`);
@@ -22,6 +25,15 @@ export function sjWebCrate(options: Types): Plugin {
   return {
     name: "sj-web-crate",
     enforce: "pre",
+
+    config(cfg: UserConfig) {
+      const root = cfg.root ?? process.cwd();
+      const input = buildRollupInput(root, options);
+      return {
+        build: { rollupOptions: { input } },
+      };
+    },
+
     configResolved(config) {
       resolvedConfig = config;
     },
@@ -61,8 +73,18 @@ export function sjWebCrate(options: Types): Plugin {
       return moduleString;
     },
 
-    // Watch md files during dev and invalidate on change
     configureServer(server) {
+      const input = buildRollupInput(resolvedConfig.root, options);
+      const urlMap = buildUrlMap(resolvedConfig.root, input);
+
+      server.middlewares.use((req, _res, next) => {
+        if (!req.url) return next();
+        const urlPath = req.url.split("?")[0].split("#")[0];
+        const mapped = urlMap.get(urlPath);
+        if (mapped) req.url = req.url.replace(urlPath, mapped);
+        next();
+      });
+
       for (const collection of options.collections) {
         const absDir = resolve(resolvedConfig.root, collection.dir);
         server.watcher.add(absDir);
@@ -88,7 +110,6 @@ export function sjWebCrate(options: Types): Plugin {
       });
     },
 
-    // Generate .d.ts and per-entry page JSON files
     buildStart() {
       const dtsPath = resolve(
         resolvedConfig.root,
@@ -97,26 +118,36 @@ export function sjWebCrate(options: Types): Plugin {
       writeFileSync(dtsPath, generateDts(options.collections));
 
       for (const config of options.collections) {
-        if (!config.pageTemplate) continue;
+        if (!config.renderPage) continue;
 
         const entries = parseCollection(config, resolvedConfig.root, verbose);
         const pagesDir = resolve(resolvedConfig.root, "src/pages", config.name);
-        const templatePath = resolve(resolvedConfig.root, config.pageTemplate);
 
         mkdirSync(pagesDir, { recursive: true });
 
         for (const entry of entries) {
-          const pageData = {
-            template: templatePath,
-            slug: entry.slug,
-            ...entry.data,
-            body: entry.body,
-          };
-
-          const outPath = resolve(pagesDir, `${entry.slug}.json`);
-          writeFileSync(outPath, JSON.stringify(pageData, null, 2));
+          const html = config.renderPage(entry.data, resolvedConfig.base);
+          const outPath = resolve(pagesDir, `${entry.slug}.html`);
+          writeFileSync(outPath, html);
           logger(verbose, "generated page:", outPath);
         }
+      }
+    },
+
+    generateBundle(_, bundle) {
+      // Rewrite output paths: strip src/pages/ prefix.
+      // Nested pages (e.g. artist/dylan.html) become artist/dylan/index.html for clean URLs.
+      for (const oldName of Object.keys(bundle)) {
+        if (!oldName.startsWith(PAGES_PREFIX) || !oldName.endsWith(".html"))
+          continue;
+        const rel = oldName.slice(PAGES_PREFIX.length);
+        const newName = rel.includes("/")
+          ? rel.replace(/\.html$/, "/index.html")
+          : rel;
+        const asset = bundle[oldName] as unknown as OutputAsset;
+        (asset as unknown as { fileName: string }).fileName = newName;
+        bundle[newName] = asset as unknown as OutputAsset;
+        delete bundle[oldName];
       }
     },
   };

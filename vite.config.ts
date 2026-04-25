@@ -1,15 +1,12 @@
 import { defineConfig } from "vite";
-import vituum from "vituum";
-import nunjucks from "@vituum/vite-plugin-nunjucks";
 import { sjWebCrate } from "./plugins/sj-web-crate/plugin.ts";
+import { renderArtistPage } from "./plugins/sj-web-crate/templates/renderArtistPage.ts";
 
 const isDev = process.env.NODE_ENV !== "production";
 const base = isDev ? "" : "/monstersofjungle.de/";
 export default defineConfig({
   base,
   plugins: [
-    vituum(),
-    nunjucks(),
     sjWebCrate({
       verbose: false,
       collections: [
@@ -17,7 +14,7 @@ export default defineConfig({
           name: "artist",
           dir: "content/artists",
           requiredFields: ["artistNameLabel", "gridOrder"],
-          pageTemplate: "src/pages/artist.njk",
+          renderPage: renderArtistPage,
         },
         {
           name: "upcoming-event",

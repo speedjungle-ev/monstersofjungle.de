@@ -28,10 +28,9 @@ export interface CrateConfig {
    */
   requiredFields?: string[];
   /**
-   * Path to a .njk template (relative to project root).
-   * If set, the plugin generates one JSON page entry per collection item
-   * into src/pages/<name>/<slug>.json, which the Nunjucks plugin renders
-   * into dist/<name>/<slug>/index.html.
+   * If provided, the plugin generates one static .html file per entry
+   * into src/pages/<name>/<slug>.html at buildStart.
+   * Receives the entry's frontmatter data and the resolved base URL.
    */
-  pageTemplate?: string;
+  renderPage?: (data: Record<string, unknown>, base: string) => string;
 }
