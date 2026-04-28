@@ -1,5 +1,5 @@
 export const SITE_MAP = {
   about: "./about.html",
-  artistDetail: "./artist-details.html",
+  artistDetail: "./artist",
   impression: "./impression.html",
 };

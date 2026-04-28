@@ -1,3 +1,7 @@
+export type EventMetaData = {
+  flyer: string;
+};
+
 export type ArtistMetaData = {
   gridOrder: number;
   artistNameLabel: string;

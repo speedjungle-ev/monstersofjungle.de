@@ -27,4 +27,10 @@ export interface CrateConfig {
    * Build will throw if any are missing.
    */
   requiredFields?: string[];
+  /**
+   * If provided, the plugin generates one static .html file per entry
+   * into src/pages/<name>/<slug>.html at buildStart.
+   * Receives the entry's frontmatter data and the resolved base URL.
+   */
+  renderPage?: (data: Record<string, unknown>, base: string) => string;
 }

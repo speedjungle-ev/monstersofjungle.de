@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Generated page files (produced by sj-web-crate at build time)
+src/pages/artist/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
