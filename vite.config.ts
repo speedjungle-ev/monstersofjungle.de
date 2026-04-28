@@ -8,7 +8,10 @@ const base = isDev ? "" : "/monstersofjungle.de/";
 export default defineConfig({
   base,
   plugins: [
-    htmlPartials(),
+    htmlPartials({
+      header: "src/partials/header.html",
+      footer: "src/partials/footer.html",
+    }),
     sjWebCrate({
       verbose: false,
       collections: [

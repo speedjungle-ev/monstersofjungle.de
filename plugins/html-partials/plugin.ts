@@ -2,7 +2,13 @@ import type { Plugin, ResolvedConfig } from "vite";
 import { readFileSync } from "fs";
 import { resolve } from "path";
 
-export function htmlPartials(): Plugin {
+interface HtmlPartialsOptions {
+  header?: string;
+  main?: string;
+  footer?: string;
+}
+
+export function htmlPartials(options: HtmlPartialsOptions): Plugin {
   let config: ResolvedConfig;
 
   return {
@@ -16,20 +22,23 @@ export function htmlPartials(): Plugin {
         const base = config.base ?? "/";
         const buildDate = new Date().toLocaleDateString("de-DE");
 
-        const header = readFileSync(
-          resolve(config.root, "src/pages/templates/header.html"),
-          "utf-8",
-        );
-        const footer = readFileSync(
-          resolve(config.root, "src/pages/templates/footer.html"),
-          "utf-8",
-        )
-          .replaceAll("{{base}}", base)
-          .replace("{{buildDate}}", buildDate);
+        const tags = ["header", "main", "footer"] as const;
 
-        return html
-          .replace("<header></header>", `<header>\n${header}\n</header>`)
-          .replace("<footer></footer>", `<footer>\n${footer}\n</footer>`);
+        for (const tag of tags) {
+          const file = options[tag];
+          if (!file) continue;
+
+          const content = readFileSync(resolve(config.root, file), "utf-8")
+            .replaceAll("{{base}}", base)
+            .replaceAll("{{buildDate}}", buildDate);
+
+          html = html.replace(
+            `<${tag}></${tag}>`,
+            `<${tag}>\n${content}\n</${tag}>`,
+          );
+        }
+
+        return html;
       },
     },
   };
