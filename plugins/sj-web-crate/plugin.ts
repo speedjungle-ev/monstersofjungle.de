@@ -1,5 +1,4 @@
 import type { Plugin, ResolvedConfig, UserConfig } from "vite";
-import type { OutputAsset } from "rollup";
 import { mkdirSync, writeFileSync } from "fs";
 import { resolve } from "path";
 import { generateDts } from "./generateDts.ts";
@@ -144,9 +143,9 @@ export function sjWebCrate(options: Types): Plugin {
         const newName = rel.includes("/")
           ? rel.replace(/\.html$/, "/index.html")
           : rel;
-        const asset = bundle[oldName] as unknown as OutputAsset;
-        (asset as unknown as { fileName: string }).fileName = newName;
-        bundle[newName] = asset as unknown as OutputAsset;
+        const asset = bundle[oldName];
+        (asset as { fileName: string }).fileName = newName;
+        bundle[newName] = asset;
         delete bundle[oldName];
       }
     },
