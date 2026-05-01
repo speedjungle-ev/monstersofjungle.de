@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { mkdirSync, writeFileSync, rmSync } from "node:fs";
 import { join } from "path";
-import { parseCollection } from "./parseCollection";
+import { parseCollection } from "../domain/parseCollection";
 
 const TMP_DIR = join(__dirname, "__tmp_artist_data__");
 

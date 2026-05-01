@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { generateDts } from "./generateDts";
+import { generateDts } from "../application/generateDts";
 
 describe("generateDts", () => {
   it("includes the auto-generated header comment", () => {

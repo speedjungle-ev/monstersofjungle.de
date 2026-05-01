@@ -1,15 +1,15 @@
-import type { Types } from "./types.ts";
+import type { SjWebCrateOptions } from "../domain/types.ts";
 import { join, relative, resolve } from "path";
 import { existsSync, readdirSync } from "fs";
-import { parseCollection } from "./parseCollection.ts";
+import { parseCollection } from "../domain/parseCollection.ts";
 
 export function buildRollupInput(
   root: string,
-  options: Types,
+  options: SjWebCrateOptions,
 ): Record<string, string> {
   const pagesDir = resolve(root, "src/pages");
   const generatedDirs = new Set(
-    options.collections.filter((c) => c.renderPage).map((c) => c.name),
+    options.collections.filter((c) => c.pageData).map((c) => c.name),
   );
   const input: Record<string, string> = {};
 
@@ -17,7 +17,7 @@ export function buildRollupInput(
     if (!existsSync(dir)) return;
     for (const entry of readdirSync(dir, { withFileTypes: true })) {
       if (entry.isDirectory()) {
-        if (entry.name === "templates" || entry.name === "layouts") continue;
+        if (entry.name === "templates") continue;
         if (generatedDirs.has(entry.name)) continue;
         scan(join(dir, entry.name), `${prefix}${entry.name}-`);
       } else if (entry.name.endsWith(".html")) {
@@ -29,7 +29,7 @@ export function buildRollupInput(
 
   scan(pagesDir, "");
 
-  for (const col of options.collections.filter((c) => c.renderPage)) {
+  for (const col of options.collections.filter((c) => c.pageData)) {
     const entries = parseCollection(col, root, false);
     for (const entry of entries) {
       input[`${col.name}-${entry.slug}`] = resolve(

@@ -1,28 +1,35 @@
 import type { Plugin, ResolvedConfig, UserConfig } from "vite";
-import { mkdirSync, writeFileSync } from "fs";
-import { resolve } from "path";
-import { generateDts } from "./generateDts.ts";
-import { parseCollection } from "./parseCollection.ts";
-import type { Types } from "./types.ts";
-import { logger } from "../../src/utils/infrastructure/logger.ts";
-import { buildRollupInput, buildUrlMap } from "./buildRollupInput.ts";
+import { mkdirSync, readFileSync, writeFileSync } from "fs";
+import { dirname, resolve } from "path";
+import { generateDts } from "./application/generateDts.ts";
+import { parseCollection } from "./domain/parseCollection.ts";
+import type { SjWebCrateOptions } from "./domain/types.ts";
+import { logger } from "./application/logger.ts";
+import {
+  buildRollupInput,
+  buildUrlMap,
+} from "./application/buildRollupInput.ts";
+import { filenameToTitle } from "./application/filenameToTitle.ts";
+import { processPageTokens } from "./application/processPageTokens.ts";
 
-const PAGES_PREFIX = "src/pages/";
-
+const PLUGIN_NAME = "sj-web-crate";
+const PLUGIN_VIRTUAL_ID = "virtual:sj-web-crate/";
+const PAGES_DIR = "src/pages";
+const PAGES_PREFIX = `${PAGES_DIR}/`;
 const DTS_OUTPUT = "plugins/sj-web-crate/sj-web-crate.d.ts";
 
-export function sjWebCrate(options: Types): Plugin {
+export function sjWebCrate(options: SjWebCrateOptions): Plugin {
   const verbose = Boolean(options.verbose);
   let resolvedConfig: ResolvedConfig;
   const virtualModuleIds = new Map<string, string>();
 
   for (const collection of options.collections) {
-    const id = `virtual:sj-web-crate/${collection.name}`;
+    const id = `${PLUGIN_VIRTUAL_ID}${collection.name}`;
     virtualModuleIds.set(id, `\0${id}`);
   }
 
   return {
-    name: "sj-web-crate",
+    name: PLUGIN_NAME,
     enforce: "pre",
 
     config(cfg: UserConfig) {
@@ -48,7 +55,7 @@ export function sjWebCrate(options: Types): Plugin {
       if (!entry) return;
 
       const virtualId = entry[0];
-      const collectionName = virtualId.replace("virtual:sj-web-crate/", "");
+      const collectionName = virtualId.replace(PLUGIN_VIRTUAL_ID, "");
       const config = options.collections.find(
         (c) => c.name === collectionName,
       )!;
@@ -93,7 +100,7 @@ export function sjWebCrate(options: Types): Plugin {
         if (!filePath.endsWith(".md")) return;
 
         const virtualId = [...virtualModuleIds.values()].find((id) => {
-          const collectionName = id.replace("\0virtual:sj-web-crate/", "");
+          const collectionName = id.replace(`\\0${PLUGIN_VIRTUAL_ID}`, "");
           const config = options.collections.find(
             (c) => c.name === collectionName,
           )!;
@@ -117,20 +124,74 @@ export function sjWebCrate(options: Types): Plugin {
       writeFileSync(dtsPath, generateDts(options.collections));
 
       for (const config of options.collections) {
-        if (!config.renderPage) continue;
+        if (!config.pageData || !config.pageTemplate) continue;
 
         const entries = parseCollection(config, resolvedConfig.root, verbose);
-        const pagesDir = resolve(resolvedConfig.root, "src/pages", config.name);
-
+        const pagesDir = resolve(resolvedConfig.root, PAGES_DIR, config.name);
         mkdirSync(pagesDir, { recursive: true });
 
+        const templatePath = resolve(resolvedConfig.root, config.pageTemplate);
+        const shellTemplate = readFileSync(templatePath, "utf-8");
+        const partialsDir = config.partialsDir
+          ? resolve(resolvedConfig.root, config.partialsDir)
+          : dirname(templatePath);
+
         for (const entry of entries) {
-          const html = config.renderPage(entry.data, resolvedConfig.base);
+          const pageTokens = config.pageData(entry.data);
+          const titleStem = pageTokens.title != null
+            ? String(pageTokens.title)
+            : entry.slug.charAt(0).toUpperCase() + entry.slug.slice(1);
+          const tokens: Record<string, unknown> = {
+            ...pageTokens,
+            title: options.siteName ? `${titleStem} | ${options.siteName}` : titleStem,
+            base: resolvedConfig.base ?? "/",
+          };
+          const html = processPageTokens(shellTemplate, tokens, partialsDir);
           const outPath = resolve(pagesDir, `${entry.slug}.html`);
           writeFileSync(outPath, html);
           logger(verbose, "generated page:", outPath);
         }
       }
+    },
+
+    transformIndexHtml: {
+      order: "pre",
+      handler(html, ctx) {
+        if (options.partials) {
+          const base = resolvedConfig.base ?? "/";
+          const buildDate = new Date().toLocaleDateString(
+            options.locale ?? "en-EN",
+          );
+          for (const tag of ["header", "footer"] as const) {
+            const file = options.partials[tag];
+            if (!file) continue;
+            const content = readFileSync(
+              resolve(resolvedConfig.root, file),
+              "utf-8",
+            )
+              .replaceAll("{{base}}", base)
+              .replaceAll("{{buildDate}}", buildDate);
+            html = html.replace(
+              `<${tag}></${tag}>`,
+              `<${tag}>\n${content}\n</${tag}>`,
+            );
+          }
+        }
+
+        if (options.siteName && html.includes("{{title}}")) {
+          const stem =
+            ctx.filename
+              .replace(/\.html$/, "")
+              .split("/")
+              .pop() ?? "index";
+          html = html.replace(
+            "{{title}}",
+            filenameToTitle(stem, options.siteName),
+          );
+        }
+
+        return html;
+      },
     },
 
     generateBundle(_, bundle) {

@@ -1,4 +1,4 @@
-import type { CrateConfig } from "./types.ts";
+import type { CrateConfig } from "../domain/types.ts";
 
 export function generateDts(collections: CrateConfig[]): string {
   const modules = collections
