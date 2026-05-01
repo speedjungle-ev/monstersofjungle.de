@@ -1,6 +1,6 @@
 # Monsters of Jungle Website
 
-Static website for the Monsters of Jungle electronic music collective, built with Vite and a custom headless CMS plugin.
+Static website built with Vite and a custom headless CMS plugin.
 
 ## Commands
 
