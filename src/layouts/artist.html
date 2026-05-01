@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="/src/styles/style.css"/>
+  <link rel="stylesheet" href="/src/styles/artist-details.css"/>
+  <script src="/src/scripts/common.ts" type="module"></script>
+</head>
+<body>
+<header></header>
+<main>
+  <h1>{{artistName}}</h1>
+  {{#mixLinks}}<ul id="mix-links">{{> mix-link}}</ul>{{/mixLinks}}
+  {{#attachment}}<p id="attachments">{{attachment}}</p>{{/attachment}}
+</main>
+<footer></footer>
+</body>
+</html>

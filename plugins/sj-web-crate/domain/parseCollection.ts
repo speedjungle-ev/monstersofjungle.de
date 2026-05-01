@@ -3,7 +3,7 @@ import type { CrateConfig } from "./types.ts";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "pathe";
 import matter from "gray-matter";
-import { logger, loggerWarn } from "../../src/utils/infrastructure/logger.ts";
+import { logger, loggerWarn } from "../application/logger.ts";
 
 export function parseCollection(
   config: CrateConfig,
