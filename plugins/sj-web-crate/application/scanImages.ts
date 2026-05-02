@@ -12,7 +12,7 @@ export function scanImages(slug: string, publicSubdir: string): string[] {
         const bn = parseInt(b.match(pattern)![1]);
         return an - bn;
       })
-      .map((f) => `${publicSubdir}/${f}`);
+      .map((f) => `/${publicSubdir}/${f}`);
   } catch {
     return [];
   }

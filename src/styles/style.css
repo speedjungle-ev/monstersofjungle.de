@@ -1,4 +1,6 @@
-@import "classes.css";
+@import "typography.css";
+@import "shared.css";
+@import "main.css";
 
 :root {
     --grid-gap: 16px;

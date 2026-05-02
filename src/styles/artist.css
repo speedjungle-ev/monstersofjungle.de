@@ -2,13 +2,27 @@ main {
     flex-direction: column;
 }
 
+.artist-header-images {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--grid-gap);
+    width: 100%;
+}
+
+.artist-header-images img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    flex: none;
+}
+
 #mix-links {
     display: flex;
     flex-direction: column;
     list-style: none;
     padding: 0;
     margin: 0;
-    gap: 1rem;
+    gap: 0.5rem;
 
     li {
         display: flex;
@@ -17,12 +31,7 @@ main {
         gap: 1rem;
         padding: 0;
         margin: 0;
-        font-size: 2rem;
-
-        img {
-            min-width: 0;
-            max-width: 35px;
-        }
+        font-size: var(--text-lg);
 
         a, a:visited {
             width: 100%;
@@ -31,6 +40,5 @@ main {
 }
 
 #attachments {
-    font-family: inherit;
-    font-size: 2rem;
+    font-size: var(--text-lg);
 }
