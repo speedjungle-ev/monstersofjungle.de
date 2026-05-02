@@ -2,8 +2,8 @@ import type { Plugin, ResolvedConfig, UserConfig } from "vite";
 import { mkdirSync, readFileSync, writeFileSync } from "fs";
 import { dirname, resolve } from "path";
 import { generateDts } from "./application/generateDts.ts";
-import { parseCollection } from "./domain/parseCollection.ts";
-import type { SjWebCrateOptions } from "./domain/types.ts";
+import { parseCrate } from "./domain/parseCrate.ts";
+import type { CrateEntry, SjWebCrateOptions } from "./domain/types.ts";
 import { logger } from "./application/logger.ts";
 import {
   buildRollupInput,
@@ -21,11 +21,19 @@ const DTS_OUTPUT = "plugins/sj-web-crate/sj-web-crate.d.ts";
 export function sjWebCrate(options: SjWebCrateOptions): Plugin {
   const verbose = Boolean(options.verbose);
   let resolvedConfig: ResolvedConfig;
+  let cachedCollections: Record<string, CrateEntry[]> = {};
   const virtualModuleIds = new Map<string, string>();
 
-  for (const collection of options.collections) {
-    const id = `${PLUGIN_VIRTUAL_ID}${collection.name}`;
+  for (const crate of options.crates) {
+    const id = `${PLUGIN_VIRTUAL_ID}${crate.name}`;
     virtualModuleIds.set(id, `\0${id}`);
+  }
+
+  function parseAndSort(crate: (typeof options.crates)[number]) {
+    return parseCrate(crate, resolvedConfig.root, verbose).sort(
+      (a, b) =>
+        ((a.data as any).gridOrder ?? 99) - ((b.data as any).gridOrder ?? 99),
+    );
   }
 
   return {
@@ -55,20 +63,10 @@ export function sjWebCrate(options: SjWebCrateOptions): Plugin {
       if (!entry) return;
 
       const virtualId = entry[0];
-      const collectionName = virtualId.replace(PLUGIN_VIRTUAL_ID, "");
-      const config = options.collections.find(
-        (c) => c.name === collectionName,
-      )!;
+      const crateName = virtualId.replace(PLUGIN_VIRTUAL_ID, "");
+      const crate = options.crates.find((c) => c.name === crateName)!;
 
-      const entries = parseCollection(
-        config,
-        resolvedConfig.root,
-        verbose,
-      ).sort(
-        (a, b) =>
-          ((a.data as any).gridOrder ?? 99) - ((b.data as any).gridOrder ?? 99),
-      );
-
+      const entries = parseAndSort(crate);
       const moduleString = `
     export const entries = ${JSON.stringify(entries)};
     export const slugs = ${JSON.stringify(entries.map((e) => e.slug))};
@@ -91,20 +89,25 @@ export function sjWebCrate(options: SjWebCrateOptions): Plugin {
         next();
       });
 
-      for (const collection of options.collections) {
-        const absDir = resolve(resolvedConfig.root, collection.dir);
+      for (const crate of options.crates) {
+        const absDir = resolve(resolvedConfig.root, crate.dir);
         server.watcher.add(absDir);
       }
 
       server.watcher.on("change", (filePath) => {
         if (!filePath.endsWith(".md")) return;
 
+        for (const crate of options.crates) {
+          const absDir = resolve(resolvedConfig.root, crate.dir);
+          if (filePath.startsWith(absDir)) {
+            cachedCollections[crate.name] = parseAndSort(crate);
+          }
+        }
+
         const virtualId = [...virtualModuleIds.values()].find((id) => {
-          const collectionName = id.replace(`\\0${PLUGIN_VIRTUAL_ID}`, "");
-          const config = options.collections.find(
-            (c) => c.name === collectionName,
-          )!;
-          const absDir = resolve(resolvedConfig.root, config.dir);
+          const crateName = id.replace(`\\0${PLUGIN_VIRTUAL_ID}`, "");
+          const crate = options.crates.find((c) => c.name === crateName)!;
+          const absDir = resolve(resolvedConfig.root, crate.dir);
           return filePath.startsWith(absDir);
         });
 
@@ -117,33 +120,43 @@ export function sjWebCrate(options: SjWebCrateOptions): Plugin {
     },
 
     buildStart() {
+      cachedCollections = {};
+      for (const crate of options.crates) {
+        cachedCollections[crate.name] = parseAndSort(crate);
+      }
+
       const dtsPath = resolve(
         resolvedConfig.root,
         options.dtsOutput ?? DTS_OUTPUT,
       );
-      writeFileSync(dtsPath, generateDts(options.collections));
+      writeFileSync(dtsPath, generateDts(options.crates));
 
-      for (const config of options.collections) {
-        if (!config.pageData || !config.pageTemplate) continue;
+      for (const crate of options.crates) {
+        if (!crate.pageData || !crate.pageTemplate) continue;
 
-        const entries = parseCollection(config, resolvedConfig.root, verbose);
-        const pagesDir = resolve(resolvedConfig.root, PAGES_DIR, config.name);
+        const entries = cachedCollections[crate.name];
+        const pagesDir = resolve(resolvedConfig.root, PAGES_DIR, crate.name);
         mkdirSync(pagesDir, { recursive: true });
 
-        const templatePath = resolve(resolvedConfig.root, config.pageTemplate);
+        const templatePath = resolve(resolvedConfig.root, crate.pageTemplate);
         const shellTemplate = readFileSync(templatePath, "utf-8");
-        const partialsDir = config.partialsDir
-          ? resolve(resolvedConfig.root, config.partialsDir)
+        const partialsDirRaw =
+          crate.partialsDir ?? options.partialsDir ?? null;
+        const partialsDir = partialsDirRaw
+          ? resolve(resolvedConfig.root, partialsDirRaw)
           : dirname(templatePath);
 
         for (const entry of entries) {
-          const pageTokens = config.pageData(entry.data);
-          const titleStem = pageTokens.title != null
-            ? String(pageTokens.title)
-            : entry.slug.charAt(0).toUpperCase() + entry.slug.slice(1);
+          const pageTokens = crate.pageData(entry.data);
+          const titleStem =
+            pageTokens.title != null
+              ? String(pageTokens.title)
+              : entry.slug.charAt(0).toUpperCase() + entry.slug.slice(1);
           const tokens: Record<string, unknown> = {
             ...pageTokens,
-            title: options.siteName ? `${titleStem} | ${options.siteName}` : titleStem,
+            title: options.siteName
+              ? `${titleStem} | ${options.siteName}`
+              : titleStem,
             base: resolvedConfig.base ?? "/",
           };
           const html = processPageTokens(shellTemplate, tokens, partialsDir);
@@ -157,8 +170,9 @@ export function sjWebCrate(options: SjWebCrateOptions): Plugin {
     transformIndexHtml: {
       order: "pre",
       handler(html, ctx) {
+        const base = resolvedConfig.base ?? "/";
+
         if (options.partials) {
-          const base = resolvedConfig.base ?? "/";
           const buildDate = new Date().toLocaleDateString(
             options.locale ?? "en-EN",
           );
@@ -178,12 +192,33 @@ export function sjWebCrate(options: SjWebCrateOptions): Plugin {
           }
         }
 
-        if (options.siteName && html.includes("{{title}}")) {
-          const stem =
-            ctx.filename
-              .replace(/\.html$/, "")
-              .split("/")
-              .pop() ?? "index";
+        const stem =
+          ctx.filename.replace(/\.html$/, "").split("/").pop() ?? "index";
+        const pageConfig = options.pages?.find((p) =>
+          ctx.filename.endsWith(p.match),
+        );
+
+        if (pageConfig?.pageData) {
+          const title = options.siteName
+            ? filenameToTitle(stem, options.siteName)
+            : stem;
+          const rawTokens = pageConfig.pageData(cachedCollections);
+          const tokens: Record<string, unknown> = { title, base, ...rawTokens };
+          for (const key of Object.keys(tokens)) {
+            const val = tokens[key];
+            if (Array.isArray(val)) {
+              tokens[key] = (val as Record<string, unknown>[]).map((item) => ({
+                base,
+                ...item,
+              }));
+            }
+          }
+          const partialsDir = resolve(
+            resolvedConfig.root,
+            options.partialsDir ?? "src/partials",
+          );
+          html = processPageTokens(html, tokens, partialsDir);
+        } else if (options.siteName && html.includes("{{title}}")) {
           html = html.replace(
             "{{title}}",
             filenameToTitle(stem, options.siteName),

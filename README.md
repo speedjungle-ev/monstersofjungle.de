@@ -28,7 +28,7 @@ monstersofjungle.de/
 │   └── logos/                  # Brand logos
 │
 ├── src/
-│   ├── collections/            # pageData functions for each collection type
+│   ├── crates/                 # pageData functions for each crate type
 │   │   └── artist.ts           # Maps artist frontmatter → page token map
 │   ├── layouts/                # HTML page shells (one per collection type)
 │   │   └── artist.html         # Shell template with {{token}} placeholders
@@ -43,14 +43,14 @@ monstersofjungle.de/
 │   │   └── mix-link.html       # {{> mix-link}} partial for artist pages
 │   ├── scripts/                # Client-side TypeScript
 │   ├── styles/                 # CSS
-│   └── components/             # Lit-HTML render functions
+│   └── components/             # Client-side render functions
 │
 └── plugins/
     └── sj-web-crate/           # Custom Vite CMS plugin
         ├── plugin.ts           # Vite plugin entry point
         ├── domain/             # Core types and parsing
         │   ├── types.ts
-        │   └── parseCollection.ts
+        │   └── parseCrate.ts
         ├── application/        # Orchestration and utilities
         │   ├── buildRollupInput.ts
         │   ├── filenameToTitle.ts
