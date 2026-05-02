@@ -98,5 +98,5 @@ export interface CrateConfig {
    * hide their block. Return a `title` key to override the default slug-derived
    * page title. Keep this as pure data — no HTML.
    */
-  pageData?: (data: Record<string, unknown>) => Record<string, unknown>;
+  pageData?: (entry: CrateEntry) => Record<string, unknown>;
 }

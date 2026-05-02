@@ -147,18 +147,28 @@ export function sjWebCrate(options: SjWebCrateOptions): Plugin {
           : dirname(templatePath);
 
         for (const entry of entries) {
-          const pageTokens = crate.pageData(entry.data);
+          const pageTokens = crate.pageData(entry);
           const titleStem =
             pageTokens.title != null
               ? String(pageTokens.title)
               : entry.slug.charAt(0).toUpperCase() + entry.slug.slice(1);
+          const base = resolvedConfig.base ?? "/";
           const tokens: Record<string, unknown> = {
             ...pageTokens,
             title: options.siteName
               ? `${titleStem} | ${options.siteName}`
               : titleStem,
-            base: resolvedConfig.base ?? "/",
+            base,
           };
+          for (const key of Object.keys(tokens)) {
+            const val = tokens[key];
+            if (Array.isArray(val)) {
+              tokens[key] = (val as Record<string, unknown>[]).map((item) => ({
+                base,
+                ...item,
+              }));
+            }
+          }
           const html = processPageTokens(shellTemplate, tokens, partialsDir);
           const outPath = resolve(pagesDir, `${entry.slug}.html`);
           writeFileSync(outPath, html);
