@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>{{title}}</title>
   <link rel="stylesheet" href="/src/styles/style.css"/>
-  <link rel="stylesheet" href="/src/styles/artist-details.css"/>
+  <link rel="stylesheet" href="/src/styles/artist.css"/>
   <script src="/src/scripts/common.ts" type="module"></script>
 </head>
 <body>
 <header>
-  {{#headerImages}}<div class="artist-header-images">{{> artist-header-image}}</div>{{/headerImages}}
   <h1>{{artistName}}</h1>
+  {{#headerImages}}<div class="artist-header-images">{{> artist-header-image}}</div>{{/headerImages}}
 </header>
 <main>
-  {{#mixLinks}}<ul id="mix-links">{{> mix-link}}</ul>{{/mixLinks}}
+  {{#mixLinks}}<h2>Mixes</h2><ul id="mix-links">{{> mix-link}}</ul>{{/mixLinks}}
   {{#attachment}}<p id="attachments">{{attachment}}</p>{{/attachment}}
 </main>
 <footer></footer>
