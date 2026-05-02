@@ -5,7 +5,7 @@ import { join } from "pathe";
 import matter from "gray-matter";
 import { logger, loggerWarn } from "../application/logger.ts";
 
-export function parseCollection(
+export function parseCrate(
   config: CrateConfig,
   rootDir: string,
   verbose: boolean = false,

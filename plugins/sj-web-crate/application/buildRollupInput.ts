@@ -1,7 +1,7 @@
 import type { SjWebCrateOptions } from "../domain/types.ts";
 import { join, relative, resolve } from "path";
 import { existsSync, readdirSync } from "fs";
-import { parseCollection } from "../domain/parseCollection.ts";
+import { parseCrate } from "../domain/parseCrate.ts";
 
 export function buildRollupInput(
   root: string,
@@ -9,7 +9,7 @@ export function buildRollupInput(
 ): Record<string, string> {
   const pagesDir = resolve(root, "src/pages");
   const generatedDirs = new Set(
-    options.collections.filter((c) => c.pageData).map((c) => c.name),
+    options.crates.filter((c) => c.pageData).map((c) => c.name),
   );
   const input: Record<string, string> = {};
 
@@ -29,8 +29,8 @@ export function buildRollupInput(
 
   scan(pagesDir, "");
 
-  for (const col of options.collections.filter((c) => c.pageData)) {
-    const entries = parseCollection(col, root, false);
+  for (const col of options.crates.filter((c) => c.pageData)) {
+    const entries = parseCrate(col, root, false);
     for (const entry of entries) {
       input[`${col.name}-${entry.slug}`] = resolve(
         root,

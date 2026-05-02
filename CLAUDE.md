@@ -20,7 +20,7 @@ npm run format       # Prettier formatting
 
 The core architectural pattern: Markdown files with YAML frontmatter in `/content/` are parsed at build time and exposed as Vite virtual modules.
 
-- `parseCollection.ts` — reads `.md` files via `gray-matter`, validates required fields, derives slugs from filenames
+- `parseCrate.ts` — reads `.md` files via `gray-matter`, validates required fields, derives slugs from filenames
 - `generateDts.ts` — auto-generates `plugins/sj-web-crate/sj-web-crate.d.ts` for TypeScript safety
 - `plugin.ts` — registers virtual modules, watches content for HMR, sorts entries by `gridOrder`
 

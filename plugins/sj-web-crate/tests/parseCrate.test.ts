@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { mkdirSync, writeFileSync, rmSync } from "node:fs";
 import { join } from "path";
-import { parseCollection } from "../domain/parseCollection";
+import { parseCrate } from "../domain/parseCrate";
 
 const TMP_DIR = join(__dirname, "__tmp_artist_data__");
 
@@ -21,10 +21,10 @@ afterEach(() => {
   rmSync(TMP_DIR, { recursive: true, force: true });
 });
 
-describe(parseCollection, () => {
+describe(parseCrate, () => {
   describe("file discovery", () => {
     it("returns an empty array and warns when no .md files exist", () => {
-      const result = parseCollection({ name: "artist", dir: TMP_DIR }, "/");
+      const result = parseCrate({ name: "artist", dir: TMP_DIR }, "/");
       expect(result).toEqual([]);
     });
 
@@ -35,7 +35,7 @@ describe(parseCollection, () => {
         md("artistNameLabel: elektrik earliner\ngridOrder: 1\nmixLinks: []"),
       );
 
-      const result = parseCollection({ name: "artist", dir: TMP_DIR }, "/");
+      const result = parseCrate({ name: "artist", dir: TMP_DIR }, "/");
       expect(result).toHaveLength(1);
       expect(result[0].slug).toBe("elektrikearliner");
     });
@@ -43,7 +43,7 @@ describe(parseCollection, () => {
     it("throws when the directory does not exist", () => {
       const nonExistingDirectory = "/does/not/exist";
       expect(() =>
-        parseCollection(
+        parseCrate(
           { name: "artist", dir: nonExistingDirectory },
           "/",
           false,
@@ -59,7 +59,7 @@ describe(parseCollection, () => {
         md("artistNameLabel: elektrik earliner\ngridOrder: 1\nmixLinks: []"),
       );
 
-      const result = parseCollection({ name: "artist", dir: TMP_DIR }, "/");
+      const result = parseCrate({ name: "artist", dir: TMP_DIR }, "/");
       expect(result[0].slug).toBe("elektrikearliner");
     });
 
@@ -69,7 +69,7 @@ describe(parseCollection, () => {
         md("artistNameLabel: T-Force\ngridOrder: 2\nmixLinks: []"),
       );
 
-      const result = parseCollection({ name: "artist", dir: TMP_DIR }, "/");
+      const result = parseCrate({ name: "artist", dir: TMP_DIR }, "/");
       expect(result[0].slug).toBe("tforce");
     });
   });
@@ -81,7 +81,7 @@ describe(parseCollection, () => {
         md("artistNameLabel: elektrik earliner\ngridOrder: 1\nmixLinks: []"),
       );
 
-      const result = parseCollection({ name: "artist", dir: TMP_DIR }, "/");
+      const result = parseCrate({ name: "artist", dir: TMP_DIR }, "/");
       expect(result[0].data).toMatchObject({
         artistNameLabel: "elektrik earliner",
         gridOrder: 1,
@@ -97,7 +97,7 @@ describe(parseCollection, () => {
         ),
       );
 
-      const result = parseCollection({ name: "artist", dir: TMP_DIR }, "/");
+      const result = parseCrate({ name: "artist", dir: TMP_DIR }, "/");
       expect(result[0].data.mixLinks).toEqual([
         { label: "monsters of jungle", link: "https://mixcloud.com/pukka" },
       ]);
@@ -111,7 +111,7 @@ describe(parseCollection, () => {
         ),
       );
 
-      const result = parseCollection({ name: "artist", dir: TMP_DIR }, "/");
+      const result = parseCrate({ name: "artist", dir: TMP_DIR }, "/");
       expect(result[0].data.features).toEqual(["radioShow"]);
     });
 
@@ -124,7 +124,7 @@ describe(parseCollection, () => {
         ),
       );
 
-      const result = parseCollection({ name: "artist", dir: TMP_DIR }, "/");
+      const result = parseCrate({ name: "artist", dir: TMP_DIR }, "/");
       expect(result[0].body).toBe("Some bio text here.");
     });
 
@@ -134,7 +134,7 @@ describe(parseCollection, () => {
         md("artistNameLabel: Neoniris\ngridOrder: 4\nmixLinks: []"),
       );
 
-      const result = parseCollection({ name: "artist", dir: TMP_DIR }, "/");
+      const result = parseCrate({ name: "artist", dir: TMP_DIR }, "/");
       expect(result[0].body).toBe("");
     });
   });
@@ -147,7 +147,7 @@ describe(parseCollection, () => {
       );
 
       expect(() =>
-        parseCollection(
+        parseCrate(
           {
             name: "artist",
             dir: TMP_DIR,
@@ -162,7 +162,7 @@ describe(parseCollection, () => {
       writeFixture("neoniris.md", md("mixLinks: []"));
 
       expect(() =>
-        parseCollection(
+        parseCrate(
           {
             name: "artist",
             dir: TMP_DIR,
@@ -180,7 +180,7 @@ describe(parseCollection, () => {
       );
 
       expect(() =>
-        parseCollection(
+        parseCrate(
           {
             name: "artist",
             dir: TMP_DIR,
@@ -195,7 +195,7 @@ describe(parseCollection, () => {
       writeFixture("neoniris.md", md("mixLinks: []"));
 
       expect(() =>
-        parseCollection({ name: "artist", dir: TMP_DIR }, "/"),
+        parseCrate({ name: "artist", dir: TMP_DIR }, "/"),
       ).not.toThrow();
     });
   });
@@ -215,7 +215,7 @@ describe(parseCollection, () => {
         md("artistNameLabel: DJ Pukka\ngridOrder: 3\nmixLinks: []"),
       );
 
-      const result = parseCollection({ name: "artist", dir: TMP_DIR }, "/");
+      const result = parseCrate({ name: "artist", dir: TMP_DIR }, "/");
       expect(result).toHaveLength(3);
       expect(result.map((e) => e.slug)).toContain("elektrikearliner");
       expect(result.map((e) => e.slug)).toContain("tforce");

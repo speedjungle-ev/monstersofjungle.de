@@ -7,15 +7,16 @@
     <link rel="stylesheet" href="/src/styles/style.css"/>
     <script src="/src/scripts/common.ts" type="module"></script>
     <script src="/src/scripts/next-event.ts" type="module"></script>
-    <script src="/src/scripts/artist-grid.ts" type="module"></script>
 </head>
 <body>
 <header></header>
-<div class="hero">
-    <div id="next-event" class="next-event"></div>
-</div>
 <main>
-    <div id="artist-grid" class="artist-grid"></div>
+    <div class="hero">
+        <div id="next-event" class="next-event"></div>
+    </div>
+    {{#artists}}
+    <div id="artist-grid" class="artist-grid">{{> artist-card}}</div>
+    {{/artists}}
 </main>
 <footer></footer>
 </body>

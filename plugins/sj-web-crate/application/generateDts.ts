@@ -1,7 +1,7 @@
 import type { CrateConfig } from "../domain/types.ts";
 
-export function generateDts(collections: CrateConfig[]): string {
-  const modules = collections
+export function generateDts(crates: CrateConfig[]): string {
+  const modules = crates
     .map((c) => {
       return `  declare module 'virtual:sj-web-crate/${c.name}' {
     export interface Entry {
