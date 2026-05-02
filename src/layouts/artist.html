@@ -9,9 +9,11 @@
   <script src="/src/scripts/common.ts" type="module"></script>
 </head>
 <body>
-<header></header>
-<main>
+<header>
+  {{#headerImages}}<div class="artist-header-images">{{> artist-header-image}}</div>{{/headerImages}}
   <h1>{{artistName}}</h1>
+</header>
+<main>
   {{#mixLinks}}<ul id="mix-links">{{> mix-link}}</ul>{{/mixLinks}}
   {{#attachment}}<p id="attachments">{{attachment}}</p>{{/attachment}}
 </main>
