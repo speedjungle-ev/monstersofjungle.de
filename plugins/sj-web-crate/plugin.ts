@@ -200,6 +200,14 @@ export function sjWebCrate(options: SjWebCrateOptions): Plugin {
               `<${tag}>\n${content}\n</${tag}>`,
             );
           }
+
+          if (options.partials.meta) {
+            const content = readFileSync(
+              resolve(resolvedConfig.root, options.partials.meta),
+              "utf-8",
+            ).replaceAll("{{base}}", base);
+            html = html.replace("<head>", `<head>\n${content}`);
+          }
         }
 
         const stem =

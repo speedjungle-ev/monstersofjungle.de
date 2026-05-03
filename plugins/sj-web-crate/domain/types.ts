@@ -61,6 +61,7 @@ export interface PageConfig {
 export interface PartialsConfig {
   header?: string;
   footer?: string;
+  meta?: string;
 }
 
 export interface CrateConfig {

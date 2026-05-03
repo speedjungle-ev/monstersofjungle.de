@@ -14,6 +14,7 @@ export default defineConfig({
       locale: "de-DE",
       partialsDir: "src/partials",
       partials: {
+        meta: "src/partials/head-meta.html",
         header: "src/partials/header.html",
         footer: "src/partials/footer.html",
       },
