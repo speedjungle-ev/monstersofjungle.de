@@ -9,7 +9,7 @@ if (nextEventTarget) {
   img.setAttribute("src", `events/${NEXT_EVENT_FLYER}`);
   nextEventTarget.appendChild(img);
 
-  const p = document.createElement("p");
-  p.append(NEXT_EVENT_MESSAGE);
+  const p = document.createElement("div");
+  p.innerHTML = NEXT_EVENT_MESSAGE;
   nextEventTarget.append(p);
 }

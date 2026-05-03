@@ -3,6 +3,7 @@ import type { CrateConfig } from "./types.ts";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "pathe";
 import matter from "gray-matter";
+import { marked } from "marked";
 import { logger, loggerWarn } from "../application/logger.ts";
 
 export function parseCrate(
@@ -61,7 +62,8 @@ export function parseCrate(
       );
     }
 
-    return { slug, data, body: content.trim() };
+    const body = marked.parse(content.trim()) as string;
+    return { slug, data, body };
   });
 
   logger(verbose, "total parsed:", parsed.length);

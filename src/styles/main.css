@@ -1,8 +1,17 @@
+/* ==========================================================================
+   MONSTERS OF JUNGLE — Main
+   Hero, artist grid, layout helpers, sections
+   ========================================================================== */
+
+/* ---- Hero ---- */
+
 .hero {
     width: 100%;
     max-width: var(--grid-max-width);
     margin: 0 auto;
 }
+
+/* ---- Artist grid (3-col max) ---- */
 
 .artist-grid {
     display: grid;
@@ -31,6 +40,55 @@
     aspect-ratio: 3 / 1;
 }
 
+/* ---- Generic content grid ---- */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--grid-gap);
+}
+
+.grid--2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid--1 {
+    grid-template-columns: 1fr;
+}
+
+/* ---- Section divider ---- */
+
+.section-title {
+    font-family: var(--font-utility);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-grey);
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 0.5px solid var(--color-grey-light);
+}
+
+/* ---- Dark block (hero / brand sections) ---- */
+
+.block-dark {
+    background: var(--color-ink);
+    border-radius: 12px;
+    padding: 48px 32px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ---- Surface card (elevated smoke bg) ---- */
+
+.card {
+    background: var(--color-surface);
+    border-radius: 12px;
+    padding: 24px;
+}
+
+/* ---- Responsive ---- */
+
 @media (max-width: 780px) {
     .artist-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -42,6 +100,32 @@
 
     .artist-grid > a:last-child:nth-child(2n + 1) > img {
         aspect-ratio: 2 / 1;
+    }
+}
+
+@media (max-width: 720px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .grid--2 {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        font-size: var(--text-2xl);
+    }
+
+    h2 {
+        font-size: var(--text-xl);
+    }
+
+    .event-card__name {
+        font-size: var(--text-xl);
+    }
+
+    a.link-display {
+        font-size: var(--text-xl);
     }
 }
 

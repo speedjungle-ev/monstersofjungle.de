@@ -23,6 +23,8 @@ body {
     min-height: 100dvh;
     overflow: visible;
     gap: var(--grid-gap);
+    background-color: var(--color-bg);
+    color: var(--color-text);
 }
 
 header,
@@ -38,6 +40,10 @@ footer {
     position: relative;
 }
 
+main {
+    justify-content: flex-start;
+}
+
 header {
     margin: 5.9rem auto;
 }
@@ -49,16 +55,6 @@ main {
 
 footer {
     padding-bottom: var(--grid-gap);
-}
-
-a, a:visited {
-    color: #3F8BCA;
-    /*width: 100%;*/
-}
-
-a:hover {
-    color: white;
-    background-color: #3F8BCA;
 }
 
 img {
@@ -79,33 +75,4 @@ a img {
 a img:hover {
     transform: scale(1.05);
     filter: brightness(1.15);
-}
-
-
-@media (max-width: 780px) {
-    header {
-
-        img {
-            width: 76%;
-        }
-
-        img:nth-child(4) {
-            display: none;
-        }
-    }
-}
-
-@media (max-width: 420px) {
-    header {
-
-        img {
-            width: 100%;
-        }
-        img:nth-child(3) {
-            display: none;
-        }
-    }
-    footer {
-        justify-content: center;
-    }
 }
