@@ -1,6 +1,6 @@
 import type { Plugin, ResolvedConfig, UserConfig } from "vite";
-import { mkdirSync, readFileSync, writeFileSync } from "fs";
-import { dirname, resolve } from "path";
+import { mkdirSync, readdirSync, readFileSync, renameSync, rmSync, writeFileSync } from "fs";
+import { dirname, join, relative, resolve } from "path";
 import { generateDts } from "./application/generateDts.ts";
 import { parseCrate } from "./domain/parseCrate.ts";
 import type { CrateEntry, SjWebCrateOptions } from "./domain/types.ts";
@@ -15,7 +15,6 @@ import { processPageTokens } from "./application/processPageTokens.ts";
 const PLUGIN_NAME = "sj-web-crate";
 const PLUGIN_VIRTUAL_ID = "virtual:sj-web-crate/";
 const PAGES_DIR = "src/pages";
-const PAGES_PREFIX = `${PAGES_DIR}/`;
 const DTS_OUTPUT = "plugins/sj-web-crate/sj-web-crate.d.ts";
 
 export function sjWebCrate(options: SjWebCrateOptions): Plugin {
@@ -247,21 +246,34 @@ export function sjWebCrate(options: SjWebCrateOptions): Plugin {
       },
     },
 
-    generateBundle(_, bundle) {
-      // Rewrite output paths: strip src/pages/ prefix.
-      // Nested pages (e.g. artist/dylan.html) become artist/dylan/index.html for clean URLs.
-      for (const oldName of Object.keys(bundle)) {
-        if (!oldName.startsWith(PAGES_PREFIX) || !oldName.endsWith(".html"))
-          continue;
-        const rel = oldName.slice(PAGES_PREFIX.length);
-        const newName = rel.includes("/")
-          ? rel.replace(/\.html$/, "/index.html")
-          : rel;
-        const asset = bundle[oldName];
-        (asset as { fileName: string }).fileName = newName;
-        bundle[newName] = asset;
-        delete bundle[oldName];
+    closeBundle() {
+      if (resolvedConfig.command !== "build") return;
+
+      const outDir = resolve(resolvedConfig.root, resolvedConfig.build.outDir ?? "dist");
+      const pagesOut = join(outDir, "src", "pages");
+
+      if (!readdirSync(outDir, { withFileTypes: true }).some((e) => e.name === "src")) return;
+
+      function collectHtml(dir: string): string[] {
+        const results: string[] = [];
+        for (const entry of readdirSync(dir, { withFileTypes: true })) {
+          const full = join(dir, entry.name);
+          if (entry.isDirectory()) results.push(...collectHtml(full));
+          else if (entry.name.endsWith(".html")) results.push(full);
+        }
+        return results;
       }
+
+      for (const file of collectHtml(pagesOut)) {
+        const rel = relative(pagesOut, file);
+        const dest = rel.includes("/")
+          ? join(outDir, rel.replace(/\.html$/, ""), "index.html")
+          : join(outDir, rel);
+        mkdirSync(dirname(dest), { recursive: true });
+        renameSync(file, dest);
+      }
+
+      rmSync(join(outDir, "src"), { recursive: true, force: true });
     },
   };
 }
