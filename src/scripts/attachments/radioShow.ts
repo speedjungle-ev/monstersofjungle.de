@@ -3,5 +3,5 @@ import { getNextRadioShowDate } from "../../utils/feature/get-next-radio-show-da
 export function radioShow() {
   const currentDate = getNextRadioShowDate(Date.now()).toLocaleDateString();
 
-  return `Next Radio Show: ${currentDate}`;
+  return `Next "Headz" on Radio-Z: ${currentDate}`;
 }

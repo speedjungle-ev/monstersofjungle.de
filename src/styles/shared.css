@@ -8,7 +8,7 @@
     --color-white: #FFFFFF;
     --color-ink: #0A0A0A;
     --color-jungle: #00E55C;
-    --color-jungle-dark: #00B849;
+    --color-jungle-dark: #00752b;
     --color-flame: #FF4D1A;
     --color-flame-dark: #CC3D15;
 
@@ -16,15 +16,6 @@
     --color-grey: #6B6B6B;
     --color-grey-light: #D0D0D0;
     --color-grey-lightest: #F5F5F5;
-
-    /* ---- Semantic aliases ---- */
-    --color-bg: var(--color-white);
-    --color-surface: var(--color-grey-lightest);
-    --color-text: var(--color-ink);
-    --color-text-muted: var(--color-grey);
-    --color-border: var(--color-grey-light);
-    --color-accent: var(--color-jungle);
-    --color-accent-hover: var(--color-jungle-dark);
 }
 
 
@@ -84,15 +75,17 @@
 a,
 a:visited {
     color: var(--color-jungle);
-    text-decoration: none;
-    border-bottom: 1.5px solid transparent;
-    transition: border-color 0.15s, color 0.15s;
+    /*transition: border-color 0.15s, color 0.15s;*/
+    background-color: var(--color-jungle-dark);
 }
 
+a:not(:has(img)) {
+    padding: 0.2rem;
+
+}
 a:hover {
-    color: var(--color-jungle);
-    background-color: transparent;
-    border-bottom-color: var(--color-jungle);
+    color: var(--color-jungle-dark);
+    background-color: var(--color-jungle);
 }
 
 /* ---- Inline body link (subtle underline within paragraphs) ---- */

@@ -1,6 +1,7 @@
-@import "typography.css";
-@import "shared.css";
 @import "main.css";
+@import "next-event.css";
+@import "shared.css";
+@import "typography.css";
 
 :root {
     --grid-gap: 16px;

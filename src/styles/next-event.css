@@ -1,0 +1,31 @@
+#next-event {
+
+    h1, h2 {
+        /*border: thin solid var(--color-jungle-dark);*/
+        padding: 2rem 1rem
+    }
+
+    ul {
+        border: thin solid var(--color-jungle-dark);
+        list-style: none;
+        padding: 0;
+        margin-bottom: 1rem;
+    }
+
+    li {
+        padding: 8px 12px;
+        margin-bottom: 4px;
+
+        strong {
+            font-weight: 600;
+        }
+    }
+
+    p {
+        font-size: 1.125rem;
+        line-height: 1.75; /* sans-serif benefits from slightly more */
+        color: #2d2d2d;
+        margin-bottom: 1.5em;
+        -webkit-font-smoothing: antialiased;
+    }
+}
