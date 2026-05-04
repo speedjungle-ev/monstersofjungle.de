@@ -26,3 +26,6 @@ src/pages/artist/
 *.sln
 *.sw?
 /.env
+
+# Claude Code local config
+.claude/
