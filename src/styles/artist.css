@@ -34,7 +34,11 @@ main {
         font-size: var(--text-lg);
 
         a, a:visited {
+            padding: 0 0.5rem;
             width: 100%;
+        }
+        a:hover {
+            text-decoration: none;
         }
     }
 }
