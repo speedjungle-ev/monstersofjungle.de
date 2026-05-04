@@ -5,3 +5,10 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{base}}favicon/favicon-16x16.png"/>
     <link rel="apple-touch-icon" sizes="180x180" href="{{base}}favicon/apple-touch-icon.png"/>
     <link rel="manifest" href="{{base}}manifest.json"/>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('{{base}}sw.js');
+        });
+      }
+    </script>
