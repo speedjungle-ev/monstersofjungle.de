@@ -8,15 +8,22 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/monstersofjungle.de/favicon/favicon-16x16.png"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/monstersofjungle.de/favicon/apple-touch-icon.png"/>
     <link rel="manifest" href="/monstersofjungle.de/manifest.json"/>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/monstersofjungle.de/sw.js');
+        });
+      }
+    </script>
   <title>DJ Pukka | Monsters of Jungle</title>
-  <script type="module" crossorigin src="/monstersofjungle.de/assets/common-BGJiL6To.js"></script>
-  <link rel="stylesheet" crossorigin href="/monstersofjungle.de/assets/common-CURofxsg.css">
-  <link rel="stylesheet" crossorigin href="/monstersofjungle.de/assets/artist-DV7yZnGn.css">
+  <script type="module" crossorigin src="/monstersofjungle.de/assets/common-80lXIX-w.js"></script>
+  <link rel="stylesheet" crossorigin href="/monstersofjungle.de/assets/common-KBOx2kum.css">
+  <link rel="stylesheet" crossorigin href="/monstersofjungle.de/assets/artist-D_phrovX.css">
 </head>
 <body>
 <header>
   <h1>DJ Pukka</h1>
-  
+  <div class="artist-header-images"><img src="/monstersofjungle.de/artists/pukka0.png" alt="DJ Pukka" /></div>
 </header>
 <main>
   <h2>Mixes</h2><ul id="mix-links"><li><a href="https://www.mixcloud.com/DJ_Pukka/dj-pukka-monsters-of-jungle-february-2020/" target="_blank" rel="noopener">DJ Pukka - Monsters of Jungle February 2020</a></li></ul>
@@ -32,10 +39,10 @@
         href="https://shop.spreadshirt.de/monstersofjungle/"
         target="new"
         rel="noreferrer nofollow"
-        class="talent"
+        class="merch-link"
 >
     <img
-            src="/monstersofjungle.de/assets/moj-merch-tile-IXXlQ1si.png"
+            src="/monstersofjungle.de/assets/moj-merch-tile-ByKfcWSj.png"
             alt="Spread Shirt Merch Link"
     />
 </a>

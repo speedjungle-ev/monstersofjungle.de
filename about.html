@@ -8,9 +8,16 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/monstersofjungle.de/favicon/favicon-16x16.png"/>
     <link rel="apple-touch-icon" sizes="180x180" href="/monstersofjungle.de/favicon/apple-touch-icon.png"/>
     <link rel="manifest" href="/monstersofjungle.de/manifest.json"/>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/monstersofjungle.de/sw.js');
+        });
+      }
+    </script>
   <title>About | Monsters of Jungle</title>
-  <script type="module" crossorigin src="/monstersofjungle.de/assets/common-BGJiL6To.js"></script>
-  <link rel="stylesheet" crossorigin href="/monstersofjungle.de/assets/common-CURofxsg.css">
+  <script type="module" crossorigin src="/monstersofjungle.de/assets/common-80lXIX-w.js"></script>
+  <link rel="stylesheet" crossorigin href="/monstersofjungle.de/assets/common-KBOx2kum.css">
 </head>
 <body>
 <header>
@@ -51,10 +58,10 @@
         href="https://shop.spreadshirt.de/monstersofjungle/"
         target="new"
         rel="noreferrer nofollow"
-        class="talent"
+        class="merch-link"
 >
     <img
-            src="/monstersofjungle.de/assets/moj-merch-tile-IXXlQ1si.png"
+            src="/monstersofjungle.de/assets/moj-merch-tile-ByKfcWSj.png"
             alt="Spread Shirt Merch Link"
     />
 </a>
