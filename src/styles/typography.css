@@ -9,8 +9,7 @@
 @font-face {
     font-family: 'BestieSeventy';
     src: url('/fonts/BestieSeventy.woff2') format('woff2'),
-         url('/fonts/BestieSeventy.woff') format('woff'),
-         url('/fonts/BestieSeventy.ttf') format('truetype');
+         url('/fonts/BestieSeventy.woff') format('woff');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -20,7 +19,8 @@
 
 @font-face {
     font-family: 'Inconsolata';
-    src: url('/fonts/Inconsolata-Regular.woff2') format('woff2');
+    src: url('/fonts/Inconsolata-Regular.woff2') format('woff2'),
+         url('/fonts/Inconsolata-Regular.woff') format('woff');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -28,7 +28,8 @@
 
 @font-face {
     font-family: 'Inconsolata';
-    src: url('/fonts/Inconsolata-Bold.woff2') format('woff2');
+    src: url('/fonts/Inconsolata-Bold.woff2') format('woff2'),
+         url('/fonts/Inconsolata-Bold.woff') format('woff');
     font-weight: 700;
     font-style: normal;
     font-display: swap;
@@ -38,7 +39,8 @@
 
 @font-face {
     font-family: 'Outfit';
-    src: url('/fonts/Outfit-Light.woff2') format('woff2');
+    src: url('/fonts/Outfit-Light.woff2') format('woff2'),
+         url('/fonts/Outfit-Light.woff') format('woff');
     font-weight: 300;
     font-style: normal;
     font-display: swap;
@@ -46,7 +48,8 @@
 
 @font-face {
     font-family: 'Outfit';
-    src: url('/fonts/Outfit-Regular.woff2') format('woff2');
+    src: url('/fonts/Outfit-Regular.woff2') format('woff2'),
+         url('/fonts/Outfit-Regular.woff') format('woff');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -54,7 +57,8 @@
 
 @font-face {
     font-family: 'Outfit';
-    src: url('/fonts/Outfit-Medium.woff2') format('woff2');
+    src: url('/fonts/Outfit-Medium.woff2') format('woff2'),
+         url('/fonts/Outfit-Medium.woff') format('woff');
     font-weight: 500;
     font-style: normal;
     font-display: swap;
@@ -82,7 +86,7 @@
 /* ---- Base ---- */
 
 body {
-    font-family: var(--font-body), serif;
+    font-family: var(--font-body), sans-serif;
     font-weight: 300;
     font-size: var(--text-base);
     line-height: 1.65;
@@ -91,7 +95,7 @@ body {
 /* ---- Display headings ---- */
 
 h1, h2, h3 {
-    font-family: var(--font-display), serif;
+    font-family: var(--font-display), sans-serif;
     font-weight: normal;
     letter-spacing: 1px;
 }
@@ -111,19 +115,6 @@ h3 {
     line-height: 1.15;
 }
 
-/* ---- Body text ---- */
-
-p {
-    font-family: var(--font-body);
-    font-weight: 300;
-    font-size: var(--text-base);
-    line-height: 1.65;
-}
-
-p strong,
-p b {
-    font-weight: 500;
-}
 
 small {
     font-size: var(--text-body-sm);
@@ -132,14 +123,14 @@ small {
 /* ---- Utility text classes ---- */
 
 .text-utility {
-    font-family: var(--font-utility);
+    font-family: var(--font-utility), sans-serif;
     font-size: var(--text-sm);
     letter-spacing: 1px;
     text-transform: uppercase;
 }
 
 .text-utility-xs {
-    font-family: var(--font-utility);
+    font-family: var(--font-utility), sans-serif;
     font-size: var(--text-xs);
     letter-spacing: 1.5px;
     text-transform: uppercase;
@@ -148,21 +139,21 @@ small {
 /* ---- Display size classes ---- */
 
 .text-display-xl {
-    font-family: var(--font-display);
+    font-family: var(--font-display), sans-serif;
     font-size: var(--text-3xl);
     line-height: 1.0;
     letter-spacing: 1px;
 }
 
 .text-display-lg {
-    font-family: var(--font-display);
+    font-family: var(--font-display), sans-serif;
     font-size: var(--text-2xl);
     line-height: 1.1;
     letter-spacing: 0.5px;
 }
 
 .text-display-md {
-    font-family: var(--font-display);
+    font-family: var(--font-display), sans-serif;
     font-size: var(--text-xl);
     line-height: 1.15;
     letter-spacing: 0.5px;

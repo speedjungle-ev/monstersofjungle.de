@@ -75,54 +75,11 @@
     text-align: center;
 }
 
-
-/* ==========================================================================
-   Links
-   ========================================================================== */
-
-/* ---- Primary link (jungle green, default for all <a>) ---- */
-
-a,
-a:visited {
-    color: var(--color-jungle);
-    /*transition: border-color 0.15s, color 0.15s;*/
-    background-color: var(--color-jungle-dark);
-}
-
-a:not(:has(img)) {
-    padding: 0.2rem;
-
-}
-
-a:hover {
-    color: var(--color-jungle-dark);
-    background-color: var(--color-jungle);
-}
-
-/* ---- Inline body link (subtle underline within paragraphs) ---- */
-
-p a,
-p a:visited {
-    color: inherit;
-    text-decoration: underline;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 3px;
-    text-decoration-color: var(--color-grey-light);
-    border-bottom: none;
-    font-weight: 400;
-    transition: text-decoration-color 0.15s;
-}
-
-p a:hover {
-    text-decoration-color: var(--color-ink);
-    background-color: transparent;
-}
-
 /* ---- Utility link (uppercase mono, navigation embedded in content) ---- */
 
 a.link-utility,
 a.link-utility:visited {
-    font-family: var(--font-utility);
+    font-family: var(--font-utility) sans-serif;
     font-size: var(--text-sm);
     color: var(--color-grey);
     letter-spacing: 1px;
@@ -142,7 +99,7 @@ a.link-utility:hover {
 
 a.link-display,
 a.link-display:visited {
-    font-family: var(--font-display);
+    font-family: var(--font-display) sans-serif;
     font-size: var(--text-2xl);
     color: var(--color-ink);
     text-decoration: none;
@@ -166,7 +123,7 @@ a.link-display:hover {
     align-items: center;
     padding: 4px 12px;
     border-radius: 999px;
-    font-family: var(--font-utility);
+    font-family: var(--font-utility) sans-serif;
     font-size: var(--text-xs);
     font-weight: 700;
     letter-spacing: 1px;
@@ -203,7 +160,7 @@ a.link-display:hover {
 }
 
 .event-card__date {
-    font-family: var(--font-utility);
+    font-family: var(--font-utility) sans-serif;
     font-size: 11px;
     color: var(--color-jungle);
     letter-spacing: 1.5px;
@@ -211,7 +168,7 @@ a.link-display:hover {
 }
 
 .event-card__name {
-    font-family: var(--font-display);
+    font-family: var(--font-display) sans-serif;
     font-size: var(--text-2xl);
     color: var(--color-white);
     margin-top: 8px;
@@ -220,7 +177,7 @@ a.link-display:hover {
 }
 
 .event-card__venue {
-    font-family: var(--font-body);
+    font-family: var(--font-body) sans-serif;
     font-weight: 300;
     font-size: var(--text-body-sm);
     color: var(--color-grey);
@@ -265,7 +222,7 @@ a.link-display:hover {
 
 .form-label {
     display: block;
-    font-family: var(--font-utility);
+    font-family: var(--font-utility) sans-serif;
     font-size: var(--text-xs);
     color: var(--color-grey);
     letter-spacing: 1px;
@@ -284,7 +241,7 @@ select {
     border-radius: 6px;
     border: 1.5px solid var(--color-grey-light);
     background: transparent;
-    font-family: var(--font-body);
+    font-family: var(--font-body) sans-serif;
     font-size: var(--text-body-sm);
     font-weight: 300;
     color: var(--color-ink);
