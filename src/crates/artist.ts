@@ -17,6 +17,7 @@ export function artistPageData({ data, slug }: CrateEntry): Record<string, unkno
   return {
     title: data.artistNameLabel,
     artistName: data.artistNameLabel,
+    slug,
     mixLinks: data.mixLinks ?? [],
     attachment,
     headerImages,

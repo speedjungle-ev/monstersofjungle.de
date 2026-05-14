@@ -6,9 +6,10 @@
   <link rel="stylesheet" href="/src/styles/artist.css"/>
   <script src="/src/scripts/common.ts" type="module"></script>
 </head>
-<body>
+<body class="h-card">
 <header>
-  <h1>{{artistName}}</h1>
+  <h1 class="p-name">{{artistName}}</h1>
+  <a class="u-url" href="{{base}}artist/{{slug}}" hidden></a>
   {{#headerImages}}<div class="artist-header-images">{{> artist-header-image}}</div>{{/headerImages}}
 </header>
 <main>
