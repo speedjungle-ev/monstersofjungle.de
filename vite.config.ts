@@ -1,7 +1,8 @@
 import { defineConfig } from "vite";
 import { sjWebCrate } from "./plugins/sj-web-crate/plugin.ts";
 import { artistPageData } from "./src/crates/artist.ts";
-import { indexPageData } from "./src/pages/index.ts";
+import { indexPageData } from "./src/pages";
+import { qrcode } from "vite-plugin-qrcode";
 
 const isDev = process.env.NODE_ENV !== "production";
 const base = isDev ? "" : "/monstersofjungle.de/";
@@ -40,5 +41,6 @@ export default defineConfig({
         console.log("options", config.optimizeDeps.rolldownOptions);
       },
     },
+    qrcode(),
   ],
 });

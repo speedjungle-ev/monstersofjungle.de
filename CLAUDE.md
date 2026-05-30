@@ -91,3 +91,7 @@ Event description text here.
 ```
 
 Place the flyer image at `public/events/filename.png`.
+
+
+### TODO
+- make the development experience better by disabling sw.js in dev mode, or at least making it more obvious when it's active and needs to be refreshed
