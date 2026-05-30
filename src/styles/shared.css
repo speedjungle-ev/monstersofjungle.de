@@ -24,12 +24,15 @@
    ========================================================================== */
 
 .branding {
-    width: 100%;
+    width: var(--grid-max-width);
     position: absolute;
-    top: calc(0% - 94px);
+    /*top: calc(0% - 94px);*/
+    /*top: 1rem;*/
 }
 
 .branding img {
+    width: 42.0%;
+    height: 42.0%;
     margin: 0 auto;
 }
 
@@ -49,6 +52,7 @@
    ========================================================================== */
 
 .footer-meta {
+    border: thin solid cadetblue;
     flex: 1;
     display: flex;
     justify-content: space-between;

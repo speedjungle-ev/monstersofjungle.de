@@ -68,8 +68,10 @@
 
 :root {
     --font-display: 'BestieSeventy', system-ui, sans-serif;
-    --font-utility: 'Inconsolata', monospace;
-    --font-body: 'Outfit', system-ui, sans-serif;
+    --font-body: 'Outfit', monospace, sans-serif;
+    --font-heading-size: clamp(2rem, 8vw, 4.5rem);
+    --font-subheading-size: clamp(1.2rem, 4vw, 2rem);
+    --font-body-size: clamp(1.1rem, 2.5vw, 2.1rem);
 
     /* Type scale */
     --text-xs: 0.625rem;      /* 10px — utility labels */
@@ -81,6 +83,7 @@
     --text-2xl: 2rem;         /* 32px — display lg */
     --text-3xl: 3rem;         /* 48px — display xl */
     --text-4xl: 4rem;         /* 64px */
+
 }
 
 /* ---- Base ---- */
@@ -88,7 +91,7 @@
 body {
     font-family: var(--font-body), sans-serif;
     font-weight: 300;
-    font-size: var(--text-base);
+    font-size: var(--font-body-size);
     line-height: 1.65;
     color: var(--color-ink);
 }
@@ -102,60 +105,21 @@ h1, h2, h3 {
 }
 
 h1 {
-    font-size: var(--text-3xl);
+    font-size: var(--font-heading-size);
     line-height: 1.05;
 }
 
 h2 {
-    font-size: var(--text-2xl);
+    font-size: var(--font-heading-size);
     line-height: 1.1;
 }
 
 h3 {
-    font-size: var(--text-xl);
+    font-size: var(--font-subheading-size);
     line-height: 1.15;
 }
 
 
 small {
     font-size: var(--text-body-sm);
-}
-
-/* ---- Utility text classes ---- */
-
-.text-utility {
-    font-family: var(--font-utility), sans-serif;
-    font-size: var(--text-sm);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-}
-
-.text-utility-xs {
-    font-family: var(--font-utility), sans-serif;
-    font-size: var(--text-xs);
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-}
-
-/* ---- Display size classes ---- */
-
-.text-display-xl {
-    font-family: var(--font-display), sans-serif;
-    font-size: var(--text-3xl);
-    line-height: 1.0;
-    letter-spacing: 1px;
-}
-
-.text-display-lg {
-    font-family: var(--font-display), sans-serif;
-    font-size: var(--text-2xl);
-    line-height: 1.1;
-    letter-spacing: 0.5px;
-}
-
-.text-display-md {
-    font-family: var(--font-display), sans-serif;
-    font-size: var(--text-xl);
-    line-height: 1.15;
-    letter-spacing: 0.5px;
 }
