@@ -22,18 +22,19 @@
 /* ==========================================================================
    Branding
    ========================================================================== */
+:root {
+    --logo-size: clamp(17rem, 42vw, 50rem);
+}
 
 .branding {
-    width: var(--grid-max-width);
     position: absolute;
-    /*top: calc(0% - 94px);*/
-    /*top: 1rem;*/
+    margin: 0 auto;
+    left: calc(50% - var(--logo-size) / 2);
 }
 
 .branding img {
-    width: 42.0%;
-    height: 42.0%;
-    margin: 0 auto;
+    width: var(--logo-size);
+    height: var(--logo-size);
 }
 
 
@@ -43,6 +44,7 @@
 .merch-link {
     filter: grayscale(100%);
 }
+
 .merch-link:hover {
     filter: grayscale(0%);
 }
@@ -52,7 +54,6 @@
    ========================================================================== */
 
 .footer-meta {
-    border: thin solid cadetblue;
     flex: 1;
     display: flex;
     justify-content: space-between;
