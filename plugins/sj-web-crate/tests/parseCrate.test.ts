@@ -125,7 +125,7 @@ describe(parseCrate, () => {
       );
 
       const result = parseCrate({ name: "artist", dir: TMP_DIR }, "/");
-      expect(result[0].body).toBe("Some bio text here.");
+      expect(result[0].body).toBe("<p>Some bio text here.</p>\n");
     });
 
     it("returns empty string for body when there is none", () => {

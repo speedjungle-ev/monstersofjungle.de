@@ -18,7 +18,7 @@
     "typescript": "^6.0.3",
     "vite": "8.0.5",
     "vite-plugin-qrcode": "^0.4.1",
-    "vitest": "^3.2.4"
+    "vitest": "^4.1.8"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
