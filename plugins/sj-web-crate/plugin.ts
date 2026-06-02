@@ -1,5 +1,6 @@
 import type { Plugin, ResolvedConfig, UserConfig } from "vite";
 import { mkdirSync, readdirSync, readFileSync, renameSync, rmSync, writeFileSync } from "fs";
+import { execSync } from "child_process";
 import { dirname, join, relative, resolve } from "path";
 import { generateDts } from "./application/generateDts.ts";
 import { parseCrate } from "./domain/parseCrate.ts";
@@ -21,6 +22,11 @@ export function sjWebCrate(options: SjWebCrateOptions): Plugin {
   const verbose = Boolean(options.verbose);
   let resolvedConfig: ResolvedConfig;
   let cachedCollections: Record<string, CrateEntry[]> = {};
+
+  let buildHash = "dev";
+  try {
+    buildHash = execSync("git rev-parse --short HEAD", { encoding: "utf-8" }).trim();
+  } catch {}
   const virtualModuleIds = new Map<string, string>();
 
   for (const crate of options.crates) {
@@ -204,7 +210,9 @@ export function sjWebCrate(options: SjWebCrateOptions): Plugin {
             const content = readFileSync(
               resolve(resolvedConfig.root, options.partials.meta),
               "utf-8",
-            ).replaceAll("{{base}}", base);
+            )
+              .replaceAll("{{base}}", base)
+              .replaceAll("{{buildHash}}", buildHash);
             html = html.replace("<head>", `<head>\n${content}`);
           }
         }

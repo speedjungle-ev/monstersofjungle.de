@@ -6,10 +6,9 @@
 <link rel="apple-touch-icon" sizes="180x180" href="{{base}}favicon/apple-touch-icon.png"/>
 <link rel="manifest" href="{{base}}manifest.json"/>
 <script>
-    return
-    if ('serviceWorker' in navigator) {
+    if ('serviceWorker' in navigator && location.hostname !== 'localhost') {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('{{base}}sw.js');
+            navigator.serviceWorker.register('{{base}}sw.js?v={{buildHash}}', { updateViaCache: 'none' });
         });
     }
 </script>

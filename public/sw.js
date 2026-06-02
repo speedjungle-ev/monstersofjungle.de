@@ -1,4 +1,4 @@
-const CACHE_NAME = 'moj-v1';
+const CACHE_NAME = `moj-${new URL(self.location.href).searchParams.get('v') ?? 'dev'}`;
 
 self.addEventListener('install', () => self.skipWaiting());
 
