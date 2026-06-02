@@ -9,10 +9,9 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/monstersofjungle.de/favicon/apple-touch-icon.png"/>
 <link rel="manifest" href="/monstersofjungle.de/manifest.json"/>
 <script>
-    return
-    if ('serviceWorker' in navigator) {
+    if ('serviceWorker' in navigator && location.hostname !== 'localhost') {
         window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/monstersofjungle.de/sw.js');
+            navigator.serviceWorker.register('/monstersofjungle.de/sw.js?v=b96c525', { updateViaCache: 'none' });
         });
     }
 </script>
@@ -101,7 +100,7 @@
         alt="Monsters of Jungle - Footer Tile 2 - Rave Party Audience"
 />
 <div class="footer-meta span-3 ratio-auto">
-    <span>Last Generated: 31.5.2026</span>
+    <span>Last Generated: 2.6.2026</span>
     <a href="/monstersofjungle.de/">
         <img src="/monstersofjungle.de/drbass.png" alt="monstahz branding - dr. bass"/>
         Back
